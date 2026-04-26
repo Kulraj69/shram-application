@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shram Application - Kulraj Sabharwal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #191919;
+      color: #fff;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: 60px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #333;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    .breadcrumb-icon {
+      color: #888;
+    }
+
+    .title {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: 16px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #333;
+    }
+
+    /* Executive Summary */
+    .highlight-box {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+
+    .highlight-box p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #ddd;
+    }
+
+    /* Cards */
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .card-desc {
+      color: #888;
+      font-size: 14px;
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .feature-item {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .feature-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-status {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: #2d5a3d;
+      color: #4ade80;
+    }
+
+    .feature-desc {
+      color: #888;
+      font-size: 13px;
+    }
+
+    /* Table */
+    .table-wrapper {
+      overflow-x: auto;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+    }
+
+    th {
+      color: #888;
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      color: #ddd;
+    }
+
+    tr:hover {
+      background: #1a1a1a;
+    }
+
+    /* Roadmap Timeline */
+    .quarter {
+      margin-bottom: 40px;
+    }
+
+    .quarter-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .quarter-badge {
+      background: #3b82f6;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .quarter-badge.current {
+      background: #22c55e;
+    }
+
+    .roadmap-item {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 8px;
+      margin-left: 24px;
+      position: relative;
+    }
+
+    .roadmap-item::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+      top: 24px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #3b82f6;
+      border: 3px solid #191919;
+    }
+
+    .roadmap-item.completed::before {
+      background: #22c55e;
+    }
+
+    /* Priority List */
+    .priority-list {
+      list-style: none;
+    }
+
+    .priority-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .priority-number {
+      width: 32px;
+      height: 32px;
+      background: #3b82f6;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .priority-content h4 {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .priority-content p {
+      color: #888;
+      font-size: 14px;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      border: 1px solid #3b82f6;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .cta-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .cta-desc {
+      color: #888;
+      margin-bottom: 24px;
+    }
+
+    .cta-email {
+      display: inline-block;
+      background: #3b82f6;
+      color: white;
+      padding: 12px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .cta-email:hover {
+      background: #2563eb;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid #333;
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-top">
+        <span class="breadcrumb-icon">📄</span>
+        <span>shram-application</span>
+        <span>/</span>
+        <span style="color: #fff;">product-analysis</span>
+      </div>
+      <h1 class="title">Shram AI — Product Breakdown & Growth Roadmap</h1>
+      <p class="subtitle">Founder's Office Generalist Application by Kulraj Sabharwal</p>
+    </header>
+
+    <!-- Executive Summary -->
+    <section class="section">
+      <h2 class="section-title">Executive Summary</h2>
+      <div class="highlight-box">
+        <p><strong>Shram</strong> is an AI-powered desktop agent that <strong>finds follow-ups and executes them automatically</strong>. It monitors WhatsApp, Gmail, and Calendar to detect when responses are needed, drafts context-aware replies using on-device memory, and can execute follow-ups with one-click through its desktop agent.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-name">
+            Find
+            <span class="feature-status">Live</span>
+          </div>
+          <div class="feature-desc">Monitors communication apps for unresponded messages, missed meetings, pending check-ins</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-name">
+            Draft
+            <span class="feature-status">Live</span>
+          </div>
+          <div class="feature-desc">On-device memory retains context; LLM generates personalized responses</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-name">
+            Finish
+            <span class="feature-status">Live</span>
+          </div>
+          <div class="feature-desc">Desktop agent executes with one-click — actually completes the task</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Differentiators -->
+    <section class="section">
+      <h2 class="section-title">Key Differentiators</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Differentiator</th>
+              <th>Why It Matters</th>
+              <th>Competitive Position</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>No integrations required</td>
+              <td>Works out of the box</td>
+              <td>Unlike Zapier/Make (needs setup) or Claybot (requires API keys)</td>
+            </tr>
+            <tr>
+              <td>On-device memory</td>
+              <td>Privacy + personalization</td>
+              <td>Context accumulates over time without cloud dependency</td>
+            </tr>
+            <tr>
+              <td>Desktop agent execution</td>
+              <td>Actually finishes tasks</td>
+              <td>Most AI assistants stop at drafting; Shram executes</td>
+            </tr>
+            <tr>
+              <td>WhatsApp native</td>
+              <td>Captures informal B2B comms</td>
+              <td>Gmail-centric tools miss WhatsApp follow-ups</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Product-Market Fit -->
+    <section class="section">
+      <h2 class="section-title">Product-Market Fit Analysis</h2>
+      <div class="card" style="margin-bottom: 16px;">
+        <div class="card-title">Target User Archetype: Priya, 28 — BD Manager at SaaS</div>
+        <div class="card-desc">Spends 4+ hours/day on WhatsApp with enterprise clients. Constantly missing follow-ups because "it slipped through." Has tried Gmail scheduled sends, but WhatsApp follow-ups are the gap.</div>
+      </div>
+      <h3 style="font-size: 16px; margin: 24px 0 12px; color: #888;">Jobs to Be Done</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-desc">Never miss a client follow-up again</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-desc">Respond to time-sensitive messages even when overwhelmed</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-desc">Maintain relationship warmth without manual tracking</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Growth Roadmap -->
+    <section class="section">
+      <h2 class="section-title">Growth Roadmap</h2>
+
+      <div class="quarter">
+        <div class="quarter-title">
+          Q2 2025 <span class="quarter-badge current">Current</span>
+        </div>
+        <div class="roadmap-item completed">
+          <strong>Product Hunt Launch</strong> — #3 trending, 926 followers, 7 reviews (5.0 rating)
+        </div>
+        <div class="roadmap-item">
+          <strong>Fix integrations</strong> — Top user complaint; quick win for retention
+        </div>
+        <div class="roadmap-item">
+          <strong>Launch referral program</strong> — Leverage existing users as acquisition channel
+        </div>
+      </div>
+
+      <div class="quarter">
+        <div class="quarter-title">Q3 2025</div>
+        <div class="roadmap-item">
+          <strong>Sales vertical launch</strong> — CRM integration (HubSpot, Salesforce)
+        </div>
+        <div class="roadmap-item">
+          <strong>Mobile companion app</strong> — iOS first for notification/action
+        </div>
+        <div class="roadmap-item">
+          <strong>"Conversation Warmth Score"</strong> — Gamify relationship maintenance
+        </div>
+      </div>
+
+      <div class="quarter">
+        <div class="quarter-title">Q4 2025</div>
+        <div class="roadmap-item">
+          <strong>Android companion</strong> — Cross-platform coverage
+        </div>
+        <div class="roadmap-item">
+          <strong>Team tier launch</strong> — Manager visibility dashboard
+        </div>
+        <div class="roadmap-item">
+          <strong>1,000 paying customers</strong> — Revenue milestone
+        </div>
+      </div>
+
+      <div class="quarter">
+        <div class="quarter-title">Q1 2026</div>
+        <div class="roadmap-item">
+          <strong>SOC2 audit initiation</strong> — Enterprise readiness
+        </div>
+        <div class="roadmap-item">
+          <strong>Slack/Teams integration</strong> — Team coordination
+        </div>
+        <div class="roadmap-item">
+          <strong>Recruiter vertical</strong> — LinkedIn + interview follow-ups
+        </div>
+      </div>
+    </section>
+
+    <!-- Acquisition Channels -->
+    <section class="section">
+      <h2 class="section-title">Acquisition Channels Priority</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Channel</th>
+              <th>Effort</th>
+              <th>Impact</th>
+              <th>Timeline</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product Hunt launch</td>
+              <td>Medium</td>
+              <td>High</td>
+              <td>Q2 2025 ✅</td>
+            </tr>
+            <tr>
+              <td>LinkedIn organic</td>
+              <td>Low</td>
+              <td>High</td>
+              <td>Ongoing</td>
+            </tr>
+            <tr>
+              <td>Reddit/community</td>
+              <td>Medium</td>
+              <td>Medium</td>
+              <td>Q2 2025</td>
+            </tr>
+            <tr>
+              <td>Influencer partnerships</td>
+              <td>High</td>
+              <td>High</td>
+              <td>Q3 2025</td>
+            </tr>
+            <tr>
+              <td>PR (tech publications)</td>
+              <td>Medium</td>
+              <td>Medium</td>
+              <td>Q3 2025</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Strategic Recommendations -->
+    <section class="section">
+      <h2 class="section-title">Strategic Recommendations</h2>
+
+      <h3 style="font-size: 16px; margin: 24px 0 12px; color: #888;">Immediate Priorities (Next 30 Days)</h3>
+      <ul class="priority-list">
+        <li class="priority-item">
+          <span class="priority-number">1</span>
+          <div class="priority-content">
+            <h4>Fix integrations</h4>
+            <p>2 users explicitly complained. Quick win for retention.</p>
+          </div>
+        </li>
+        <li class="priority-item">
+          <span class="priority-number">2</span>
+          <div class="priority-content">
+            <h4>Launch referral program</h4>
+            <p>Leverage existing users as acquisition channel.</p>
+          </div>
+        </li>
+        <li class="priority-item">
+          <span class="priority-number">3</span>
+          <div class="priority-content">
+            <h4>Create case study content</h4>
+            <p>Turn the 7 reviewers into stories.</p>
+          </div>
+        </li>
+      </ul>
+
+      <h3 style="font-size: 16px; margin: 32px 0 12px; color: #888;">90-Day Focus</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-desc"><strong>Find repeatable acquisition channel</strong><br>Is it LinkedIn? Reddit? Influencers?</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-desc"><strong>Ship mobile companion</strong><br>Desktop-only is a ceiling.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-desc"><strong>Vertical-specific onboarding</strong><br>Sales vs. Consultant vs. Recruiter paths.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Competitive Landscape -->
+    <section class="section">
+      <h2 class="section-title">Competitive Landscape</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Competitor</th>
+              <th>Strength</th>
+              <th>Weakness</th>
+              <th>Shram Advantage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Claybot</td>
+              <td>AI-native</td>
+              <td>Requires API setup</td>
+              <td>No-code, works immediately</td>
+            </tr>
+            <tr>
+              <td>Superhuman</td>
+              <td>Speed, design</td>
+              <td>Email-only, expensive</td>
+              <td>WhatsApp + execution</td>
+            </tr>
+            <tr>
+              <td>Otter.ai</td>
+              <td>Meeting notes</td>
+              <td>Passive</td>
+              <td>Proactive task generation</td>
+            </tr>
+            <tr>
+              <td>Zapier</td>
+              <td>Integrations</td>
+              <td>No AI, complex</td>
+              <td>Intelligent automation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Conclusion -->
+    <section class="section">
+      <h2 class="section-title">Conclusion</h2>
+      <div class="highlight-box">
+        <p>Shram has found a genuine pain point — <strong>relationship maintenance overhead</strong> — and built a differentiated solution. The desktop agent execution is the key differentiator that most "AI assistants" skip.</p>
+        <br>
+        <p><strong>Key opportunity</strong>: Shift from "personal productivity tool" to <strong>"relationship infrastructure"</strong>. The 92% response rate user isn't just organized — they're building a reputation as someone who never lets conversations go cold.</p>
+        <br>
+        <p><strong>Recommended next hire</strong>: A growth-focused founder's associate who can own acquisition experiments while the founders focus on product.</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2 class="cta-title">Let's discuss how I can contribute</h2>
+      <p class="cta-desc">I'm a Technical PM with experience building AI products at RISA Labs, specializing in desktop agent workflows and growth strategy.</p>
+      <a href="mailto:ojasvika@shram.ai" class="cta-email">📧 Email: ojasvika@shram.ai</a>
+      <p style="margin-top: 24px; color: #666; font-size: 14px;">
+        <strong>Prepared by:</strong> Kulraj Sabharwal<br>
+        <strong>Email:</strong> kulrajsabharwal@gmail.com
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Shram Product Analysis — Prepared for Founder's Office Generalist Application</p>
+      <p style="margin-top: 8px;">Based on public information analysis of shram.ai</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+Subject: Shram Product Analysis + Growth Roadmap — Founder's Office Application
+
+Hi Ojasvika,
+
+I've spent time studying Shram and wanted to share my product breakdown and growth roadmap.
+
+**TL;DR:**
+Shram solves a real pain point — "never let a conversation go cold" — with a differentiated approach (desktop agent execution + WhatsApp native). The opportunity is to shift from "personal productivity tool" to "relationship infrastructure."
+
+**Key Observations:**
+
+1. **Your Moat is Execution, Not Drafting**
+   Most AI assistants stop at drafting. Shram actually executes. That's the differentiator — lean into it.
+
+2. **Integration Pain = Quick Win**
+   Your Product Hunt reviews mention "integrations pending" as a pain point. Fixing this would be a fast retention win.
+
+3. **Network Effect Opportunity**
+   When Shram follows up with someone on someone's behalf, that person becomes aware of Shram. A "Sent via Shram" micro-branding or referral mechanism could turn users into recruiters.
+
+4. **Mobile is the Ceiling**
+   Desktop-only limits use cases for on-the-go professionals. A mobile companion would unlock significant additional value.
+
+**12-Month Roadmap Highlights:**
+- Q2: Fix integrations, launch referral program
+- Q3: CRM integration (Sales vertical), Mobile companion (iOS)
+- Q4: Team tier, 1,000 paying customers
+- Q1'26: SOC2, Slack/Teams, Recruiter vertical
+
+**About Me:**
+I'm Kulraj Sabharwal, a Technical PM at RISA Labs where I've built AI products for healthcare automation. I've analyzed Shram's positioning, competitive landscape, and growth opportunities from a product and growth lens.
+
+Full analysis with detailed breakdown: https://files.catbox.moe/fvj5fa.html
+
+Would love to discuss how I can contribute to Shram's growth journey.
+
+Best,
+Kulraj Sabharwal
+kulrajsabharwal@gmail.com
++91-88260XXXXX (available on WhatsApp)
