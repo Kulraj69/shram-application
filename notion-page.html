@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shram AI - Complete Research | Kulraj Sabharwal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #191919;
+      --bg-elevated: #1a1a1a;
+      --bg-hover: #2a2a2a;
+      --text: #ffffff;
+      --text-secondary: #e0e0e0;
+      --text-tertiary: #a0a0a0;
+      --border: #333333;
+      --accent: #2383e2;
+      --green: #3d9240;
+      --orange: #d9730d;
+      --purple: #8b5cf6;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 80px 20px 200px;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .title {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      font-size: 14px;
+      color: var(--text-tertiary);
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      padding-top: 8px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      margin-top: 32px;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    /* Callout */
+    .callout {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+
+    .callout-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .callout-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Quote */
+    .quote {
+      padding: 12px 16px;
+      border-left: 3px solid var(--accent);
+      margin: 16px 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .quote-author {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-top: 8px;
+      font-style: normal;
+    }
+
+    /* List */
+    ul, ol {
+      color: var(--text-secondary);
+      padding-left: 24px;
+      margin: 8px 0;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 12px;
+      background: var(--bg-elevated);
+      color: var(--text-tertiary);
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    tr:hover td {
+      background: var(--bg-elevated);
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .tag-blue { background: rgba(35,131,226,0.2); color: #6db3f2; }
+    .tag-green { background: rgba(61,146,64,0.2); color: #6dce6d; }
+    .tag-orange { background: rgba(217,115,13,0.2); color: #f5a94d; }
+    .tag-purple { background: rgba(139,92,246,0.2); color: #a78bfa; }
+
+    /* Status */
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+    }
+
+    .status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .status-live { color: var(--green); }
+    .status-live::before { background: var(--green); }
+
+    .status-pending { color: var(--orange); }
+    .status-pending::before { background: var(--orange); }
+
+    /* Divider */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    /* Embed */
+    .embed {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .embed-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .embed-link {
+      color: var(--accent);
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .embed-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text-tertiary);
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <header class="header">
+      <h1 class="title">Shram AI - Complete Research</h1>
+      <div class="meta">By Kulraj Sabharwal • April 2025 • Founder's Office Application</div>
+    </header>
+
+    <!-- Executive Summary -->
+    <section class="section">
+      <div class="callout">
+        <div class="callout-title">What is Shram?</div>
+        <div class="callout-text">An AI-powered desktop agent that finds follow-ups and executes them automatically. Monitors WhatsApp, Gmail, and Calendar to detect when responses are needed, drafts context-aware replies using on-device memory, and executes with one-click through its desktop agent.</div>
+      </div>
+
+      <h2>Company Overview</h2>
+      <table>
+        <tr><th>Field</th><th>Details</th></tr>
+        <tr><td>Website</td><td>shram.ai</td></tr>
+        <tr><td>Founded</td><td>2024-2025</td></tr>
+        <tr><td>Headquarters</td><td>San Francisco, CA</td></tr>
+        <tr><td>Stage</td><td>Early-stage startup</td></tr>
+        <tr><td>Employees</td><td>2-10</td></tr>
+        <tr><td>Product Hunt</td><td>926 followers, #2 trending</td></tr>
+        <tr><td>Positioning</td><td>"Never let a conversation go cold"</td></tr>
+      </table>
+    </section>
+
+    <!-- Founding Team -->
+    <section class="section">
+      <h1>Founding Team</h1>
+
+      <ul>
+        <li><strong>Shivam Singh</strong> — Co-founder</li>
+        <li><strong>Abhinav Choudhary</strong> — Co-founder</li>
+        <li><strong>Rupin Vijan</strong> — Co-founder</li>
+        <li><strong>Jay Gadekar</strong> — (Work-report feature) <span class="tag tag-blue">16K+ LinkedIn followers</span></li>
+      </ul>
+
+      <h2>Social Presence</h2>
+      <table>
+        <tr><th>Platform</th><th>Handle</th><th>Notes</th></tr>
+        <tr><td>Twitter/X</td><td>@getshram</td><td>Joined Jan 2025, minimal posts</td></tr>
+        <tr><td>LinkedIn</td><td>@shram-ai</td><td>Active team updates</td></tr>
+        <tr><td>Product Hunt</td><td>Shram</td><td>926 followers, 7 reviews (5.0★)</td></tr>
+      </table>
+    </section>
+
+    <hr>
+
+    <!-- Product -->
+    <section class="section">
+      <h1>Product Features</h1>
+
+      <h2>Core Functionality</h2>
+      <table>
+        <tr><th>Feature</th><th>Description</th><th>Status</th></tr>
+        <tr><td><strong>Find</strong></td><td>Monitor WhatsApp, Gmail, Calendar for follow-up signals</td><td><span class="status status-live">Live</span></td></tr>
+        <tr><td><strong>Draft</strong></td><td>AI-generated responses using conversation context</td><td><span class="status status-live">Live</span></td></tr>
+        <tr><td><strong>Finish</strong></td><td>Desktop agent executes with one-click <span class="tag tag-green">Key Moat</span></td><td><span class="status status-live">Live</span></td></tr>
+        <tr><td><strong>On-device Memory</strong></td><td>Context retention without cloud dependency</td><td><span class="status status-live">Live</span></td></tr>
+        <tr><td><strong>Work Reports</strong></td><td>Monthly AI-generated impact reports</td><td><span class="status status-live">Live</span></td></tr>
+        <tr><td><strong>Gamification</strong></td><td>XP points, streaks, leaderboards</td><td><span class="status status-live">Live</span></td></tr>
+        <tr><td><strong>Other Integrations</strong></td><td>Slack, Teams, CRM</td><td><span class="status status-pending">Pending</span></td></tr>
+      </table>
+
+      <h2>User Reviews</h2>
+      <div class="quote">"The UI is fun and super-friendly so it doesn't overwhelm you while you use it. And the gamification feature just makes work all the more fun!"<div class="quote-author">— Aditya Chandiok, Product Hunt</div></div>
+      <div class="quote">"Came across Shram a few months ago and honestly, this is one of the smartest productivity tools I've seen in a while."<div class="quote-author">— Sourav Mohanty, LinkedIn</div></div>
+
+      <h3>Top Praise (from 7 reviews)</h3>
+      <ul>
+        <li>Gamification (6 mentions)</li>
+        <li>User-friendly (6 mentions)</li>
+        <li>Team management (5 mentions)</li>
+        <li>Intuitive UI (3 mentions)</li>
+      </ul>
+
+      <h3>Top Complaints</h3>
+      <ul>
+        <li>"Integrations pending" (2 mentions) <span class="tag tag-orange">User Priority</span></li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <!-- Timeline -->
+    <section class="section">
+      <h1>Product Timeline</h1>
+
+      <ul>
+        <li><strong>July 2024</strong> — Shram v1.0 Launch (Product Hunt #3, score 548)</li>
+        <li><strong>February 2025</strong> — Shram 2.0 Launch (Product Hunt #2, score 481)</li>
+        <li><strong>March 2025</strong> — Work-report feature announced</li>
+        <li><strong>April 2025</strong> — Hiring Founder's Office Generalist (₹45 LPA, villa in Indiranagar)</li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <!-- Competitive -->
+    <section class="section">
+      <h1>Competitive Landscape</h1>
+
+      <h2>Direct Competitors</h2>
+      <table>
+        <tr><th>Competitor</th><th>Strength</th><th>Weakness</th><th>Shram Advantage</th></tr>
+        <tr><td>Superhuman</td><td>Speed, design</td><td>Email-only, $240/yr</td><td>WhatsApp + execution</td></tr>
+        <tr><td>Claybot</td><td>AI-native</td><td>Requires API setup</td><td>No-code, works immediately</td></tr>
+        <tr><td>Clockwise</td><td>Calendar focus</td><td>Scheduling only</td><td>Broader follow-up scope</td></tr>
+        <tr><td>Zapier</td><td>Integrations</td><td>No AI, complex</td><td>Intelligent automation</td></tr>
+        <tr><td>Otter.ai</td><td>Meeting notes</td><td>Passive, no execution</td><td>Proactive task generation</td></tr>
+      </table>
+
+      <h2>Why Shram Wins</h2>
+      <ul>
+        <li><strong>Desktop agent execution</strong> — Actually finishes tasks, not just drafting <span class="tag tag-green">Key Moat</span></li>
+        <li><strong>No integration friction</strong> — Works out of the box</li>
+        <li><strong>WhatsApp native</strong> — Captures informal B2B comms</li>
+        <li><strong>Privacy-first</strong> — On-device memory without cloud dependency</li>
+      </ul>
+
+      <h2>Moat Analysis</h2>
+      <table>
+        <tr><th>Moat Component</th><th>Strength</th></tr>
+        <tr><td>Desktop agent execution</td><td><span class="tag tag-green">High</span></td></tr>
+        <tr><td>On-device memory privacy</td><td><span class="tag tag-green">High</span></td></tr>
+        <tr><td>WhatsApp integration</td><td><span class="tag tag-purple">Medium</span></td></tr>
+        <tr><td>No-code simplicity</td><td><span class="tag tag-purple">Medium</span></td></tr>
+        <tr><td>Gamification</td><td><span class="tag tag-blue">Low</span></td></tr>
+      </table>
+    </section>
+
+    <hr>
+
+    <!-- Lead Research -->
+    <section class="section">
+      <h1>Lead Research Prompts</h1>
+      <p>Copy and paste these into Perplexity AI to find leads for Shram.</p>
+
+      <h2>For LinkedIn Sales Navigator</h2>
+      <div class="embed">
+        <div class="embed-title">Find Sales Professionals Using AI Tools</div>
+        <div class="embed-link">Find me 20 LinkedIn profiles of sales professionals (Account Executives, SDRs, BDRs) at Series A-C SaaS companies who are likely power users of AI tools like Perplexity or ChatGPT. Include: name, title, company, why they'd need Shram.</div>
+      </div>
+
+      <div class="embed">
+        <div class="embed-title">Find VCs Using AI Research</div>
+        <div class="embed-link">Find me 30 LinkedIn profiles of VCs and investors who use Perplexity or AI search tools for deal sourcing. Focus on: Mid-level VCs, B2B SaaS focus, active investors with portfolio companies.</div>
+      </div>
+
+      <div class="embed">
+        <div class="embed-title">Find Startup Founders with BD Pain</div>
+        <div class="embed-link">Find me 25 startup founders (YC, Techstars, a16z portfolio) actively doing BD and likely struggling with follow-ups. Look for: founders posting about "deals", "pipeline", "follow up" in 2024-2025.</div>
+      </div>
+
+      <h2>For Twitter/X</h2>
+      <div class="embed">
+        <div class="embed-title">Find Perplexity Users Discussing Work</div>
+        <div class="embed-link">Search Twitter for users who tweeted "Perplexity Pro" OR "using Perplexity" in context of work (sales, investing, startup). Extract: handle, bio, follower count, what they do.</div>
+      </div>
+
+      <h2>For Reddit</h2>
+      <div class="embed">
+        <div class="embed-title">Find Reddit Power Users</div>
+        <div class="embed-link">Go to r/perplexity_ai and find: top 20 most upvoted posts in last 6 months, 10 most active commenters, what they use Perplexity FOR. Also check r/Sales for AI tool discussions.</div>
+      </div>
+
+      <h2>Quick Research Queries</h2>
+      <ul>
+        <li><strong>Stats:</strong> "What percentage of sales follow-ups never happen? Find recent statistics with sources."</li>
+        <li><strong>Competitor:</strong> "What do users complain about most in Superhuman reviews? Top 5 complaints."</li>
+        <li><strong>Market:</strong> "Research the AI agent market for 2025: market size, key players, funding."</li>
+        <li><strong>Viral tweet:</strong> "Write a viral tweet about 'the 48-hour follow-up window' that every salesperson relates to."</li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <!-- Growth Roadmap -->
+    <section class="section">
+      <h1>Growth Roadmap</h1>
+
+      <h2>Immediate (0-30 Days)</h2>
+      <ul>
+        <li><strong>Fix integrations</strong> — Top user complaint, quick retention win <span class="tag tag-orange">Critical</span></li>
+        <li><strong>Launch referral program</strong> — Turn users into recruiters</li>
+        <li><strong>Mobile companion (iOS)</strong> — Desktop-only is a ceiling</li>
+        <li><strong>Case study content</strong> — Turn 7 reviewers into stories</li>
+      </ul>
+
+      <h2>Q2-Q3 2025</h2>
+      <ul>
+        <li><strong>Sales vertical</strong> — CRM integration (HubSpot, Salesforce) <span class="tag tag-purple">High</span></li>
+        <li><strong>"Conversation Warmth Score"</strong> — Gamify relationship maintenance</li>
+        <li><strong>Mobile Android</strong> — Cross-platform coverage</li>
+        <li><strong>Influencer partnerships</strong> — LinkedIn/Twitter in sales/BD space</li>
+      </ul>
+
+      <h2>Q4 2025+</h2>
+      <ul>
+        <li><strong>Team tier</strong> — Manager visibility dashboard</li>
+        <li><strong>SOC2 audit</strong> — Enterprise readiness</li>
+        <li><strong>Slack/Teams integration</strong> — Team coordination</li>
+        <li><strong>Recruiter vertical</strong> — LinkedIn + interview follow-ups</li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <!-- Key Insights -->
+    <section class="section">
+      <h1>Key Insights for This Application</h1>
+
+      <h2>What Makes Shram Special</h2>
+      <ul>
+        <li><strong>Desktop agent execution</strong> — Unlike most AI tools that stop at drafting, Shram FINISHES tasks</li>
+        <li><strong>WhatsApp integration</strong> — Captures informal professional comms that Gmail tools miss</li>
+        <li><strong>"No setup required"</strong> — Works immediately out of the box</li>
+        <li><strong>Privacy-first</strong> — On-device memory without cloud dependency</li>
+      </ul>
+
+      <h2>My Relevant Experience</h2>
+      <ul>
+        <li><strong>Technical PM at RISA Labs</strong> — Building AI products for healthcare automation</li>
+        <li><strong>Desktop agent workflows</strong> — RPA, browser automation experience</li>
+        <li><strong>Growth strategy</strong> — Product analysis, competitive positioning</li>
+        <li><strong>Technical depth</strong> — Can contribute to product decisions, not just execution</li>
+      </ul>
+
+      <h2>Strategic Recommendations</h2>
+      <ul>
+        <li><strong>Double down on execution</strong> — The differentiator is finishing tasks, not drafting</li>
+        <li><strong>Launch mobile ASAP</strong> — Desktop-only limits mobile-first users</li>
+        <li><strong>Vertical play</strong> — Sales > General productivity for initial traction</li>
+        <li><strong>Network effect</strong> — "Sent via Shram" micro-branding could turn users into recruiters</li>
+      </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Shram AI Research • Kulraj Sabharwal • <a href="mailto:ojasvika@shram.ai">ojasvika@shram.ai</a></p>
+      <p style="margin-top: 8px;"><a href="https://github.com/Kulraj69/shram-application">GitHub Repository</a> • <a href="https://www.shram.ai">shram.ai</a> • <a href="https://www.producthunt.com/products/shram">Product Hunt</a></p>
+    </footer>
+
+  </div>
+</body>
+</html>
