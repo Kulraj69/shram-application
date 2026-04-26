@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shram AI - Research Workspace | Kulraj Sabharwal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #191919;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #202020;
+      --bg-hover: #2a2a2a;
+      --text-primary: #ffffff;
+      --text-secondary: #e0e0e0;
+      --text-tertiary: #a0a0a0;
+      --text-placeholder: #6b6b6b;
+      --border: #333333;
+      --accent: #2383e2;
+      --accent-hover: #1a6dd0;
+      --green: #3d9240;
+      --orange: #d9730d;
+      --purple: #8b5cf6;
+      --pink: #ec4899;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      padding: 12px;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-header {
+      padding: 8px 12px;
+      margin-bottom: 16px;
+    }
+
+    .workspace-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .workspace-icon {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: white;
+    }
+
+    .nav-section {
+      margin-bottom: 16px;
+    }
+
+    .nav-section-title {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 12px;
+      margin-bottom: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background 0.1s;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-hover);
+    }
+
+    .nav-item.active {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    .nav-item-icon {
+      font-size: 16px;
+    }
+
+    .nav-item.indent {
+      padding-left: 32px;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      margin-left: 240px;
+      padding: 40px 60px;
+      max-width: 900px;
+    }
+
+    .page-header {
+      margin-bottom: 32px;
+    }
+
+    .page-title {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .page-meta {
+      font-size: 14px;
+      color: var(--text-tertiary);
+    }
+
+    /* Content Blocks */
+    .block {
+      margin-bottom: 4px;
+    }
+
+    .block-content {
+      padding: 3px 2px;
+      border-radius: 3px;
+      transition: background 0.1s;
+    }
+
+    .block-content:hover {
+      background: var(--bg-hover);
+    }
+
+    .block-content:focus {
+      outline: none;
+      background: var(--bg-tertiary);
+    }
+
+    /* Paragraph */
+    .p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      padding: 3px 2px;
+    }
+
+    .p strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* Headings */
+    .h1 {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--text-primary);
+      padding: 22px 2px 4px;
+      letter-spacing: -0.02em;
+    }
+
+    .h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+      padding: 18px 2px 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      padding: 14px 2px 2px;
+    }
+
+    /* Bulleted List */
+    .bulleted-list {
+      padding: 3px 0;
+    }
+
+    .bulleted-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 2px 0;
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .bullet {
+      width: 6px;
+      height: 6px;
+      background: var(--text-tertiary);
+      border-radius: 50%;
+      margin-top: 10px;
+      flex-shrink: 0;
+    }
+
+    /* Numbered List */
+    .numbered-list {
+      padding: 3px 0;
+      counter-reset: item;
+    }
+
+    .numbered-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 2px 0;
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .numbered-marker {
+      flex-shrink: 0;
+      width: 24px;
+      text-align: right;
+      color: var(--text-tertiary);
+      font-size: 14px;
+    }
+
+    /* To-Do List */
+    .todo-list {
+      padding: 3px 0;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 2px 0;
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .todo-checkbox {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--text-tertiary);
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 4px;
+      cursor: pointer;
+    }
+
+    .todo-item.checked .todo-checkbox {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .todo-item.checked .todo-text {
+      text-decoration: line-through;
+      color: var(--text-tertiary);
+    }
+
+    /* Quote */
+    .quote {
+      padding: 16px 20px;
+      border-left: 3px solid var(--accent);
+      background: var(--bg-secondary);
+      margin: 8px 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .quote-text {
+      font-size: 16px;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .quote-author {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      margin-top: 8px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+
+    /* Callout */
+    .callout {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin: 8px 0;
+    }
+
+    .callout-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .callout-content {
+      flex: 1;
+    }
+
+    .callout-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .callout-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* Table */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    .table th {
+      text-align: left;
+      padding: 8px 12px;
+      background: var(--bg-secondary);
+      color: var(--text-tertiary);
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .table tr:hover td {
+      background: var(--bg-secondary);
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .tag-blue { background: rgba(35, 131, 226, 0.2); color: #6db3f2; }
+    .tag-green { background: rgba(61, 146, 64, 0.2); color: #6dce6d; }
+    .tag-orange { background: rgba(217, 115, 13, 0.2); color: #f5a94d; }
+    .tag-purple { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+    .tag-pink { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+      margin: 16px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 2px solid var(--bg-primary);
+    }
+
+    .timeline-date {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-bottom: 4px;
+    }
+
+    .timeline-content {
+      background: var(--bg-secondary);
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .timeline-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* Toggle */
+    .toggle {
+      margin: 4px 0;
+    }
+
+    .toggle-header {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      padding: 3px 0;
+    }
+
+    .toggle-icon {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      transition: transform 0.1s;
+    }
+
+    .toggle.open .toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .toggle-content {
+      display: none;
+      padding-left: 24px;
+      margin-top: 8px;
+    }
+
+    .toggle.open .toggle-content {
+      display: block;
+    }
+
+    /* Embed */
+    .embed {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      margin: 16px 0;
+    }
+
+    .embed-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .embed-link {
+      color: var(--accent);
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .embed-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Status indicators */
+    .status-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--green);
+    }
+
+    .status-live::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    .status-pending {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--orange);
+    }
+
+    .status-pending::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+    }
+
+    /* Progress bar */
+    .progress {
+      display: flex;
+      gap: 2px;
+      margin: 8px 0;
+    }
+
+    .progress-segment {
+      height: 8px;
+      background: var(--bg-tertiary);
+      border-radius: 2px;
+    }
+
+    .progress-segment.filled {
+      background: var(--accent);
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-tertiary);
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 12px;
+    }
+
+    .footer-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .footer-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="workspace-name">
+          <div class="workspace-icon">S</div>
+          <span>Shram Research</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Pages</div>
+        <a href="#overview" class="nav-item active">
+          <span class="nav-item-icon">📄</span>
+          Overview
+        </a>
+        <a href="#product" class="nav-item">
+          <span class="nav-item-icon">🚀</span>
+          Product Features
+        </a>
+        <a href="#team" class="nav-item">
+          <span class="nav-item-icon">👥</span>
+          Team & Founders
+        </a>
+        <a href="#timeline" class="nav-item">
+          <span class="nav-item-icon">📅</span>
+          Timeline
+        </a>
+        <a href="#competitive" class="nav-item">
+          <span class="nav-item-icon">⚔️</span>
+          Competitive
+        </a>
+        <a href="#research" class="nav-item">
+          <span class="nav-item-icon">🔍</span>
+          Lead Research
+        </a>
+        <a href="#prompts" class="nav-item">
+          <span class="nav-item-icon">💬</span>
+          Prompts
+        </a>
+        <a href="#roadmap" class="nav-item">
+          <span class="nav-item-icon">🗺️</span>
+          Growth Roadmap
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">External Links</div>
+        <a href="https://www.shram.ai" target="_blank" class="nav-item">
+          <span class="nav-item-icon">🌐</span>
+          shram.ai
+        </a>
+        <a href="https://www.producthunt.com/products/shram" target="_blank" class="nav-item">
+          <span class="nav-item-icon">🎯</span>
+          Product Hunt
+        </a>
+        <a href="https://x.com/getshram" target="_blank" class="nav-item">
+          <span class="nav-item-icon">𝕏</span>
+          Twitter
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1 class="page-title">Shram AI - Complete Research</h1>
+        <div class="page-meta">By Kulraj Sabharwal • Last updated April 2025</div>
+      </header>
+
+      <!-- Executive Summary -->
+      <section id="overview">
+        <div class="h1">Executive Summary</div>
+
+        <div class="callout">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <div class="callout-title">What is Shram?</div>
+            <div class="callout-text">An AI-powered desktop agent that finds follow-ups and executes them automatically. Monitors WhatsApp, Gmail, and Calendar to detect when responses are needed, drafts context-aware replies using on-device memory, and executes with one-click.</div>
+          </div>
+        </div>
+
+        <div class="h2">Company Overview</div>
+        <table class="table">
+          <tr><th>Field</th><th>Details</th></tr>
+          <tr><td>Website</td><td>shram.ai</td></tr>
+          <tr><td>Founded</td><td>2024-2025</td></tr>
+          <tr><td>Headquarters</td><td>San Francisco, CA</td></tr>
+          <tr><td>Stage</td><td>Early-stage startup</td></tr>
+          <tr><td>Employees</td><td>2-10</td></tr>
+          <tr><td>Product Hunt Followers</td><td>926</td></tr>
+        </table>
+
+        <div class="h2">Core Features</div>
+        <div class="bulleted-list">
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Find</strong> — Monitor communication apps for follow-up signals</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Draft</strong> — AI-generated responses using conversation context</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Finish</strong> — Desktop agent executes with one-click <span class="tag tag-blue">Differentiator</span></div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>On-device Memory</strong> — Context retention without cloud dependency</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Work Reports</strong> — Monthly AI-generated impact reports</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Gamification</strong> — XP points, streaks, leaderboards</div></div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Product Features -->
+      <section id="product">
+        <div class="h1">Product Features</div>
+
+        <div class="h2">Core Functionality</div>
+        <table class="table">
+          <tr><th>Feature</th><th>Description</th><th>Status</th></tr>
+          <tr><td>Find</td><td>Monitor WhatsApp, Gmail, Calendar</td><td><span class="status-live">Live</span></td></tr>
+          <tr><td>Draft</td><td>AI-generated responses</td><td><span class="status-live">Live</span></td></tr>
+          <tr><td>Finish</td><td>Desktop agent one-click execution</td><td><span class="status-live">Live</span></td></tr>
+          <tr><td>On-device Memory</td><td>Privacy-first context retention</td><td><span class="status-live">Live</span></td></tr>
+          <tr><td>Work Reports</td><td>Monthly AI impact reports</td><td><span class="status-live">Live</span></td></tr>
+          <tr><td>Integrations</td><td>WhatsApp, Gmail, Calendar</td><td><span class="status-pending">Pending</span></td></tr>
+        </table>
+
+        <div class="h2">User Reviews (Product Hunt)</div>
+        <div class="quote">
+          <div class="quote-text">"The UI is fun and super-friendly so it doesn't overwhelm you while you use it. And the gamification feature just makes work all the more fun!"</div>
+          <div class="quote-author">— Aditya Chandiok</div>
+        </div>
+        <div class="quote">
+          <div class="quote-text">"Came across Shram a few months ago and honestly, this is one of the smartest productivity tools I've seen in a while."</div>
+          <div class="quote-author">— Sourav Mohanty</div>
+        </div>
+
+        <div class="h2">Top Praise</div>
+        <div class="bulleted-list">
+          <div class="bulleted-item"><div class="bullet"></div><div>Gamification (6 mentions)</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div>User-friendly (6 mentions)</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div>Team management (5 mentions)</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div>Intuitive UI (3 mentions)</div></div>
+        </div>
+
+        <div class="h2">Top Complaints</div>
+        <div class="bulleted-list">
+          <div class="bulleted-item"><div class="bullet"></div><div>"Integrations pending" (2 mentions) <span class="tag tag-orange">Priority Fix</span></div></div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Team & Founders -->
+      <section id="team">
+        <div class="h1">Team & Founders</div>
+
+        <div class="h2">Founding Team</div>
+        <div class="bulleted-list">
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Shivam Singh</strong> — Co-founder</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Abhinav Choudhary</strong> — Co-founder</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Rupin Vijan</strong> — Co-founder</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Jay Gadekar</strong> — (Work-report feature) <span class="tag tag-blue">16K+ LinkedIn followers</span></div></div>
+        </div>
+
+        <div class="h2">Social Presence</div>
+        <table class="table">
+          <tr><th>Platform</th><th>Handle</th><th>Followers</th></tr>
+          <tr><td>Twitter/X</td><td>@getshram</td><td>47</td></tr>
+          <tr><td>LinkedIn</td><td>@shram-ai</td><td>Active</td></tr>
+          <tr><td>Product Hunt</td><td>Shram</td><td>926</td></tr>
+        </table>
+
+        <div class="h2">Positioning</div>
+        <div class="quote">
+          <div class="quote-text">"An AI to-do list that writes itself"</div>
+        </div>
+        <div class="p" style="margin-top: 8px;">Evolved to: <strong>"Be recognised for your impact at work"</strong></div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Timeline -->
+      <section id="timeline">
+        <div class="h1">Product Timeline</div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">July 2024</div>
+            <div class="timeline-content">
+              <div class="timeline-title">Shram v1.0 Launch</div>
+              <div class="timeline-desc">Product Hunt launch — Score: 548, #3 trending, 145 comments</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">February 20, 2025</div>
+            <div class="timeline-content">
+              <div class="timeline-title">Shram 2.0 Launch</div>
+              <div class="timeline-desc">Product Hunt — Score: 481, #2 of the day, "Be recognised for your impact at work"</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">March 2025</div>
+            <div class="timeline-content">
+              <div class="timeline-title">Work-Report Feature</div>
+              <div class="timeline-desc">Monthly AI-generated impact reports for team members</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">April 2025</div>
+            <div class="timeline-content">
+              <div class="timeline-title">Founder's Office Hiring</div>
+              <div class="timeline-desc">₹45 LPA + Benefits • Villa in Indiranagar, Bangalore</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Competitive -->
+      <section id="competitive">
+        <div class="h1">Competitive Landscape</div>
+
+        <div class="h2">Direct Competitors</div>
+        <table class="table">
+          <tr><th>Competitor</th><th>Strength</th><th>Weakness</th><th>Shram Advantage</th></tr>
+          <tr><td>Superhuman</td><td>Speed, design</td><td>Email-only, $240/yr</td><td>WhatsApp + execution</td></tr>
+          <tr><td>Claybot</td><td>AI-native</td><td>Requires setup</td><td>No-code, works immediately</td></tr>
+          <tr><td>Clockwise</td><td>Calendar</td><td>Scheduling only</td><td>Broader follow-up scope</td></tr>
+          <tr><td>Zapier</td><td>Integrations</td><td>No AI</td><td>Intelligent automation</td></tr>
+          <tr><td>Otter.ai</td><td>Meeting notes</td><td>Passive</td><td>Proactive task generation</td></tr>
+        </table>
+
+        <div class="h2">Why Shram Wins</div>
+        <div class="bulleted-list">
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>No integration friction</strong> — Works out of the box</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>WhatsApp native</strong> — Captures informal B2B comms</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Desktop agent execution</strong> — Actually finishes tasks <span class="tag tag-green">Key Moat</span></div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Privacy-first</strong> — On-device memory</div></div>
+        </div>
+
+        <div class="h2">Moat Analysis</div>
+        <table class="table">
+          <tr><th>Moat Component</th><th>Strength</th></tr>
+          <tr><td>Desktop agent execution</td><td><span class="tag tag-green">High</span></td></tr>
+          <tr><td>On-device memory privacy</td><td><span class="tag tag-green">High</span></td></tr>
+          <tr><td>WhatsApp integration</td><td><span class="tag tag-orange">Medium</span></td></tr>
+          <tr><td>No-code simplicity</td><td><span class="tag tag-orange">Medium</span></td></tr>
+          <tr><td>Gamification</td><td><span class="tag tag-blue">Low</span></td></tr>
+        </table>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Lead Research -->
+      <section id="research">
+        <div class="h1">Lead Research Prompts</div>
+
+        <div class="callout">
+          <div class="callout-icon">🔍</div>
+          <div class="callout-content">
+            <div class="callout-title">Copy & Paste into Perplexity</div>
+            <div class="callout-text">Use these prompts to find leads in Perplexity AI. Each prompt is designed to extract actionable lead data.</div>
+          </div>
+        </div>
+
+        <div class="h2">Top Prompts</div>
+
+        <div class="toggle" onclick="this.classList.toggle('open')">
+          <div class="toggle-header">
+            <span class="toggle-icon">▶</span>
+            <strong>Find Sales Professionals on LinkedIn</strong>
+          </div>
+          <div class="toggle-content">
+            <div class="p">Find me 20 LinkedIn profiles of sales professionals (Account Executives, SDRs, BDRs) at Series A-C SaaS companies who are likely power users of AI tools like Perplexity or ChatGPT.</div>
+          </div>
+        </div>
+
+        <div class="toggle" onclick="this.classList.toggle('open')">
+          <div class="toggle-header">
+            <span class="toggle-icon">▶</span>
+            <strong>Find VCs Using AI Research</strong>
+          </div>
+          <div class="toggle-content">
+            <div class="p">Find me 30 LinkedIn profiles of VCs, angels, and investors who use Perplexity or AI search tools for deal sourcing or due diligence.</div>
+          </div>
+        </div>
+
+        <div class="toggle" onclick="this.classList.toggle('open')">
+          <div class="toggle-header">
+            <span class="toggle-icon">▶</span>
+            <strong>Find Startup Founders with BD Pain</strong>
+          </div>
+          <div class="toggle-content">
+            <div class="p">Find me 25 startup founders (YC, Techstars, a16z portfolio) who are actively doing business development and likely struggle with follow-ups.</div>
+          </div>
+        </div>
+
+        <div class="toggle" onclick="this.classList.toggle('open')">
+          <div class="toggle-header">
+            <span class="toggle-icon">▶</span>
+            <strong>Find Recruiters Using AI Tools</strong>
+          </div>
+          <div class="toggle-content">
+            <div class="p">Find me 20 LinkedIn profiles of technical recruiters who mention using Perplexity or AI search tools.</div>
+          </div>
+        </div>
+
+        <div class="toggle" onclick="this.classList.toggle('open')">
+          <div class="toggle-header">
+            <span class="toggle-icon">▶</span>
+            <strong>Find Perplexity Power Users on Reddit</strong>
+          </div>
+          <div class="toggle-content">
+            <div class="p">Go to r/perplexity_ai and find the top 20 most upvoted posts in the last 6 months. Identify the 10 most active commenters.</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Growth Roadmap -->
+      <section id="roadmap">
+        <div class="h1">Growth Roadmap</div>
+
+        <div class="h2">Immediate (0-30 Days)</div>
+        <div class="todo-list">
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">Fix integrations</div><span class="tag tag-orange">Critical</span></div>
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">Launch referral program</div><span class="tag tag-blue">High</span></div>
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">Mobile companion (iOS)</div><span class="tag tag-blue">High</span></div>
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">Case study content</div><span class="tag tag-purple">Medium</span></div>
+        </div>
+
+        <div class="h2">Short-term (Q2-Q3 2025)</div>
+        <div class="todo-list">
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">CRM integration (Sales vertical)</div><span class="tag tag-blue">High</span></div>
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">"Conversation Warmth Score" feature</div><span class="tag tag-blue">High</span></div>
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">Team tier expansion</div><span class="tag tag-purple">Medium</span></div>
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">Influencer partnerships</div><span class="tag tag-purple">Medium</span></div>
+        </div>
+
+        <div class="h2">Long-term (Q4 2025+)</div>
+        <div class="todo-list">
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">Enterprise tier (SOC2)</div><span class="tag tag-blue">High</span></div>
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">Slack/Teams integration</div><span class="tag tag-purple">Medium</span></div>
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">Recruiter vertical</div><span class="tag tag-purple">Medium</span></div>
+          <div class="todo-item"><div class="todo-checkbox"></div><div class="todo-text">Series A readiness</div><span class="tag tag-green">High</span></div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Quick Stats -->
+      <section id="stats">
+        <div class="h1">Key Metrics</div>
+
+        <div class="bulleted-list" style="margin-top: 16px;">
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Product Hunt Score:</strong> 548 (v1.0), 481 (v2.0)</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Followers:</strong> 926 on Product Hunt</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Reviews:</strong> 7 reviews, 5.0 rating</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Hiring:</strong> Founder's Office Generalist at ₹45 LPA</div></div>
+          <div class="bulleted-item"><div class="bullet"></div><div><strong>Twitter:</strong> @getshram (joined Jan 2025)</div></div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div>Shram AI Research Workspace</div>
+        <div style="margin-top: 8px;">By Kulraj Sabharwal</div>
+        <div class="footer-links">
+          <a href="https://www.shram.ai" class="footer-link">shram.ai</a>
+          <a href="https://github.com/Kulraj69/shram-application" class="footer-link">GitHub</a>
+          <a href="mailto:ojasvika@shram.ai" class="footer-link">Apply: ojasvika@shram.ai</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
