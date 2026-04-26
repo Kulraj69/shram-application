@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RISA Dashboard Roadmap | 100% Utilization Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #191919;
+      --bg-elevated: #1a1a1a;
+      --bg-hover: #2a2a2a;
+      --text: #ffffff;
+      --text-secondary: #e0e0e0;
+      --text-tertiary: #a0a0a0;
+      --border: #333333;
+      --accent: #2383e2;
+      --green: #3d9240;
+      --orange: #d9730d;
+      --purple: #8b5cf6;
+      --pink: #ec4899;
+      --red: #ef4444;
+      --yellow: #eab308;
+      --cyan: #06b6d4;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 80px 20px 200px;
+    }
+
+    .page { max-width: 900px; margin: 0 auto; }
+
+    /* Header */
+    .header {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-blue { background: rgba(35,131,226,0.2); color: #6db3f2; }
+    .badge-green { background: rgba(61,146,64,0.2); color: #6dce6d; }
+    .badge-orange { background: rgba(217,115,13,0.2); color: #f5a94d; }
+    .badge-purple { background: rgba(139,92,246,0.2); color: #a78bfa; }
+    .title { font-size: 42px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .subtitle { font-size: 18px; color: var(--text-secondary); margin-bottom: 16px; }
+    .meta { font-size: 14px; color: var(--text-tertiary); display: flex; gap: 16px; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 6px; }
+
+    /* Sections */
+    .section { margin-bottom: 56px; }
+    h1 { font-size: 30px; font-weight: 700; margin-bottom: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+    h2 { font-size: 22px; font-weight: 600; margin-bottom: 16px; margin-top: 40px; }
+    h3 { font-size: 17px; font-weight: 600; margin-bottom: 12px; margin-top: 28px; }
+    h4 { font-size: 15px; font-weight: 600; margin-bottom: 10px; margin-top: 20px; color: var(--text-secondary); }
+    p { color: var(--text-secondary); margin-bottom: 16px; }
+
+    /* Progress Bar */
+    .progress-container { margin: 24px 0; }
+    .progress-bar {
+      height: 8px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+    .progress-label { font-size: 13px; color: var(--text-tertiary); display: flex; justify-content: space-between; }
+
+    /* Highlight Box */
+    .highlight {
+      background: linear-gradient(135deg, rgba(35,131,226,0.15) 0%, rgba(139,92,246,0.1) 100%);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+    .highlight-title { font-weight: 600; margin-bottom: 8px; color: var(--text); }
+    .highlight p { margin: 0; color: var(--text-secondary); }
+
+    /* Callout */
+    .callout {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+    .callout-icon { font-size: 24px; margin-bottom: 12px; }
+    .callout-title { font-weight: 600; font-size: 16px; margin-bottom: 8px; }
+    .callout p { font-size: 15px; margin: 0; }
+
+    /* Quote */
+    .quote {
+      background: var(--bg-elevated);
+      padding: 20px 24px;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+    }
+    .quote-text { font-size: 16px; color: var(--text-secondary); font-style: italic; line-height: 1.8; }
+    .quote-author { font-size: 14px; color: var(--text-tertiary); margin-top: 12px; }
+    .quote-author strong { color: var(--text); }
+
+    /* List */
+    ul, ol { color: var(--text-secondary); padding-left: 28px; margin: 12px 0; }
+    li { margin-bottom: 10px; padding-left: 4px; }
+    li strong { color: var(--text); }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; overflow-x: auto; display: block; }
+    th {
+      text-align: left; padding: 14px 16px;
+      background: var(--bg-elevated); color: var(--text-tertiary);
+      font-weight: 500; border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td { padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+    tr:hover td { background: var(--bg-elevated); }
+
+    /* Stats Grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 24px 0; }
+    .stat-card {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px; text-align: center;
+    }
+    .stat-value { font-size: 32px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+    .stat-label { font-size: 13px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* Tags */
+    .tag {
+      display: inline-block; padding: 3px 10px; border-radius: 5px;
+      font-size: 11px; font-weight: 600; margin-left: 8px;
+    }
+    .tag-blue { background: rgba(35,131,226,0.2); color: #6db3f2; }
+    .tag-green { background: rgba(61,146,64,0.2); color: #6dce6d; }
+    .tag-orange { background: rgba(217,115,13,0.2); color: #f5a94d; }
+    .tag-purple { background: rgba(139,92,246,0.2); color: #a78bfa; }
+    .tag-pink { background: rgba(236,72,153,0.2); color: #f472b6; }
+    .tag-red { background: rgba(239,68,68,0.2); color: #f87171; }
+    .tag-yellow { background: rgba(234,179,8,0.2); color: #facc15; }
+    .tag-cyan { background: rgba(6,182,212,0.2); color: #22d3ee; }
+
+    /* Status Indicator */
+    .status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; }
+    .status::before { content: ''; width: 8px; height: 8px; border-radius: 50%; }
+    .status-live { color: var(--green); }
+    .status-live::before { background: var(--green); }
+    .status-pending { color: var(--orange); }
+    .status-pending::before { background: var(--orange); }
+    .status-planned { color: var(--purple); }
+    .status-planned::before { background: var(--purple); }
+    .status-blocked { color: var(--red); }
+    .status-blocked::before { background: var(--red); }
+
+    /* Phase Card */
+    .phase-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 20px 0;
+    }
+    .phase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .phase-title { font-size: 20px; font-weight: 700; }
+    .phase-duration {
+      background: var(--bg);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Feature Card */
+    .feature-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 16px 0;
+    }
+    .feature-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .feature-name { font-size: 18px; font-weight: 600; }
+    .feature-desc { font-size: 14px; color: var(--text-secondary); margin: 0; }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+    .checklist li {
+      padding: 12px 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .checklist input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--green);
+    }
+    .check-item { flex: 1; }
+    .check-title { font-weight: 500; color: var(--text); }
+    .check-meta { font-size: 13px; color: var(--text-tertiary); }
+
+    /* Barrier Card */
+    .barrier-card {
+      background: linear-gradient(135deg, rgba(239,68,68,0.1) 0%, rgba(217,115,13,0.05) 100%);
+      border-left: 4px solid var(--red);
+      padding: 20px 24px;
+      margin: 20px 0;
+      border-radius: 0 10px 10px 0;
+    }
+    .barrier-title { font-weight: 600; color: var(--red); margin-bottom: 8px; }
+    .barrier p { font-size: 14px; margin: 0; }
+    .barrier-cause { color: var(--text-tertiary); font-size: 13px; margin-top: 8px; }
+
+    /* Insight Box */
+    .insight {
+      background: linear-gradient(135deg, rgba(61,146,64,0.15) 0%, rgba(35,131,226,0.1) 100%);
+      border: 1px solid var(--green);
+      border-radius: 10px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+    .insight-title { font-weight: 600; margin-bottom: 12px; color: var(--green); }
+
+    /* Code Block */
+    pre {
+      background: var(--bg-elevated);
+      padding: 20px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      overflow-x: auto;
+      margin: 16px 0;
+      border: 1px solid var(--border);
+    }
+
+    /* Divider */
+    hr { border: none; border-top: 1px solid var(--border); margin: 56px 0; }
+
+    /* Footer */
+    .footer {
+      margin-top: 80px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+    .footer a { color: var(--accent); text-decoration: none; margin-right: 24px; }
+    .footer a:hover { text-decoration: underline; }
+    .footer p { font-size: 14px; color: var(--text-tertiary); margin-top: 16px; }
+
+    /* KPI Table Row */
+    .kpi-target { color: var(--green); font-weight: 600; }
+    .kpi-current { color: var(--orange); }
+
+    /* Metric Mini */
+    .metric-mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-right: 8px;
+    }
+    .metric-mini.up { color: var(--green); }
+    .metric-mini.down { color: var(--red); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .title { font-size: 32px; }
+      h1 { font-size: 24px; }
+      h2 { font-size: 19px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="badge-row">
+        <span class="badge badge-blue">DASHBOARD</span>
+        <span class="badge badge-green">PRODUCT</span>
+        <span class="badge badge-purple">OPERATIONS</span>
+        <span class="badge badge-orange">16 WEEKS</span>
+      </div>
+      <h1 class="title">RISA Dashboard Utilization Roadmap</h1>
+      <p class="subtitle">Transform the dashboard into the single source of truth for all operational work. Zero external workarounds. Zero tribal knowledge gaps.</p>
+      <div class="meta">
+        <span class="meta-item">📅 April 2026</span>
+        <span class="meta-item">👤 Kulraj Sabharwal</span>
+        <span class="meta-item">🎯 100% Utilization Target</span>
+        <span class="meta-item">⚡ 5 Phases</span>
+      </div>
+    </header>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section class="section">
+      <div class="highlight">
+        <div class="highlight-title">Mission: Dashboard as Single Source of Truth</div>
+        <p>The goal is NOT just building more dashboard features. It's making the dashboard so complete, reliable, and trusted that <strong>no one needs to leave it</strong> for operational decisions. No BigQuery queries. No IRC pings. No email chains. No tribal knowledge.</p>
+      </div>
+
+      <h2>Current State</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">80%</div>
+          <div class="stat-label">Manual Work Reduced</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">13,509+</div>
+          <div class="stat-label">Orders Tracked</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Core Services</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">2</div>
+          <div class="stat-label">Major Clients</div>
+        </div>
+      </div>
+
+      <h2>Target State (Week 16)</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" style="color: var(--green);">100%</div>
+          <div class="stat-label">Dashboard Utilization</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">0</div>
+          <div class="stat-label">Manual Queries</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color: var(--green);">99.9%</div>
+          <div class="stat-label">Analytics Trust</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color: var(--green);">0</div>
+          <div class="stat-label">Client Escalations</div>
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 60%;"></div>
+        </div>
+        <div class="progress-label">
+          <span>Overall Progress</span>
+          <span>60% to 100% Utilization</span>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- PROBLEM ANALYSIS -->
+    <section class="section">
+      <h1>Why Dashboard Utilization Stalls at &lt;100%</h1>
+
+      <h2>Root Cause Analysis</h2>
+
+      <div class="barrier-card">
+        <div class="barrier-title">Missing Features</div>
+        <p>Users work around gaps in functionality instead of using the dashboard for certain workflows.</p>
+        <p class="barrier-cause">Root Cause: Feature completeness debt accumulated over time</p>
+      </div>
+
+      <div class="barrier-card">
+        <div class="barrier-title">Trust Deficit</div>
+        <p>PMs double-check dashboard outputs against other sources before making decisions.</p>
+        <p class="barrier-cause">Root Cause: Analytics gave wrong values, data reliability issues in the past</p>
+      </div>
+
+      <div class="barrier-card">
+        <div class="barrier-title">Workflow Disconnects</div>
+        <p>Steps happen outside the dashboard, breaking the operational flow.</p>
+        <p class="barrier-cause">Root Cause: Writeback gaps, manual handoffs, external dependencies</p>
+      </div>
+
+      <div class="barrier-card">
+        <div class="barrier-title">Knowledge Gaps</div>
+        <p>"I don't know if the dashboard can do X" — feature discovery is poor.</p>
+        <p class="barrier-cause">Root Cause: No in-app guidance, no feature catalog, no training</p>
+      </div>
+
+      <div class="barrier-card">
+        <div class="barrier-title">Approval Gaps</div>
+        <p>Approvals require email/Slack instead of in-dashboard workflows.</p>
+        <p class="barrier-cause">Root Cause: Missing approval systems and audit trails</p>
+      </div>
+
+      <div class="barrier-card">
+        <div class="barrier-title">Reporting Gaps</div>
+        <p>Leadership pulls raw data instead of using pre-built executive reports.</p>
+        <p class="barrier-cause">Root Cause: No executive dashboards, no scheduled reports</p>
+      </div>
+
+      <h2>Barrier Impact Matrix</h2>
+      <table>
+        <tr>
+          <th>Barrier</th>
+          <th>Impact</th>
+          <th>Effort to Fix</th>
+          <th>Priority</th>
+        </tr>
+        <tr>
+          <td><strong>Trust Deficit</strong></td>
+          <td>High — undermines all usage</td>
+          <td>Medium</td>
+          <td><span class="tag tag-red">P0</span></td>
+        </tr>
+        <tr>
+          <td><strong>Missing Features</strong></td>
+          <td>High — forces workarounds</td>
+          <td>High</td>
+          <td><span class="tag tag-red">P0</span></td>
+        </tr>
+        <tr>
+          <td><strong>Workflow Disconnects</strong></td>
+          <td>High — breaks operational flow</td>
+          <td>High</td>
+          <td><span class="tag tag-orange">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Approval Gaps</strong></td>
+          <td>Medium — adds friction</td>
+          <td>Medium</td>
+          <td><span class="tag tag-orange">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Knowledge Gaps</strong></td>
+          <td>Medium — reduces adoption</td>
+          <td>Low</td>
+          <td><span class="tag tag-yellow">P2</span></td>
+        </tr>
+        <tr>
+          <td><strong>Reporting Gaps</strong></td>
+          <td>Low-Medium — wastes leadership time</td>
+          <td>Medium</td>
+          <td><span class="tag tag-yellow">P2</span></td>
+        </tr>
+      </table>
+    </section>
+
+    <hr>
+
+    <!-- PHASE 1 -->
+    <section class="section">
+      <h1>Phase 1: Quick Wins</h1>
+      <p class="phase-duration" style="display: inline-block; background: var(--accent); color: white;">Week 1-2</p>
+
+      <p>Remove the immediate blockers that prevent users from using the dashboard fully. Low effort, high impact. These are the "why isn't this already done" items.</p>
+
+      <div class="phase-card">
+        <div class="feature-card" style="margin: 0; border: none; padding: 0;">
+          <div class="feature-header">
+            <div class="feature-name">1. Feature Discovery Overlay</div>
+            <span class="tag tag-green">Low Effort</span>
+          </div>
+          <p class="feature-desc"><strong>Problem:</strong> Users don't know what the dashboard can do. They manually query BigQuery or use workarounds because they don't know the feature exists.</p>
+          <p class="feature-desc"><strong>Fix:</strong> In-app feature tooltips + "New in Dashboard" notification banner + searchable feature help.</p>
+          <p style="margin-top: 12px;">
+            <span class="metric-mini up">+15% adoption</span>
+            <span>among occasional users</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="feature-card" style="margin: 0; border: none; padding: 0;">
+          <div class="feature-header">
+            <div class="feature-name">2. Status Comment Fetch from CMM</div>
+            <span class="tag tag-orange">Medium Effort</span>
+          </div>
+          <p class="feature-desc"><strong>Problem:</strong> Status shows "Sent to Plan" but no plan response details visible. Users must login to CoverMyMeds separately.</p>
+          <p class="feature-desc"><strong>Fix:</strong> Auto-fetch CMM status comments on status page. Display plan decision notes inline.</p>
+          <pre>GET /api/v1/status/{id}/cmm-comments
+Response: {
+  "decision": "Approved",
+  "effective_date": "2026-05-01",
+  "comments": "Prior auth approved for 12 months",
+  "pdf_url": "https://..."
+}</pre>
+          <p style="margin-top: 12px;">
+            <span class="metric-mini down">-100%</span>
+            <span>manual CMM logins for status checks</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="feature-card" style="margin: 0; border: none; padding: 0;">
+          <div class="feature-header">
+            <div class="feature-name">3. Dev/Prod Environment Toggle</div>
+            <span class="tag tag-green">Low Effort</span>
+          </div>
+          <p class="feature-desc"><strong>Problem:</strong> PMs confused about which dashboard to use. Accidental prod actions during testing.</p>
+          <p class="feature-desc"><strong>Fix:</strong> Clear environment indicator (color-coded banner) + prominent one-click link to switch.</p>
+          <p style="margin-top: 12px;">
+            <span class="metric-mini down">-100%</span>
+            <span>prod accidents from testing</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="feature-card" style="margin: 0; border: none; padding: 0;">
+          <div class="feature-header">
+            <div class="feature-name">4. Missing Data Pre-Filter</div>
+            <span class="tag tag-green">Low Effort</span>
+          </div>
+          <p class="feature-desc"><strong>Problem:</strong> Users scan entire list looking for actionable items. Time wasted on items already complete.</p>
+          <p class="feature-desc"><strong>Fix:</strong> One-click "Show only items with missing data" filter. Prominent toggle in filter bar.</p>
+          <p style="margin-top: 12px;">
+            <span class="metric-mini down">-50%</span>
+            <span>time to find actionable items</span>
+          </p>
+        </div>
+      </div>
+
+      <h2>Phase 1 Deliverables</h2>
+      <ul class="checklist">
+        <li>
+          <input type="checkbox" checked>
+          <div class="check-item">
+            <div class="check-title">Feature discovery overlay deployed</div>
+            <div class="check-meta">Frontend overlay with tooltips + help search</div>
+          </div>
+          <span class="tag tag-green">Done</span>
+        </li>
+        <li>
+          <input type="checkbox">
+          <div class="check-item">
+            <div class="check-title">CMM status comment fetch API + UI</div>
+            <div class="check-meta">Backend endpoint + dashboard integration</div>
+          </div>
+          <span class="tag tag-orange">In Progress</span>
+        </li>
+        <li>
+          <input type="checkbox">
+          <div class="check-item">
+            <div class="check-title">Environment indicator + switcher</div>
+            <div class="check-meta">Color-coded banner + quick link</div>
+          </div>
+          <span class="tag tag-orange">In Progress</span>
+        </li>
+        <li>
+          <input type="checkbox">
+          <div class="check-item">
+            <div class="check-title">Missing data filter toggle</div>
+            <div class="check-meta">One-click filter in filter bar</div>
+          </div>
+          <span class="tag tag-orange">In Progress</span>
+        </li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <!-- PHASE 2 -->
+    <section class="section">
+      <h1>Phase 2: Feature Completeness</h1>
+      <p class="phase-duration" style="display: inline-block; background: var(--orange); color: white;">Week 3-6</p>
+
+      <p>Fill the gaps that force users to work around the dashboard. Make the dashboard complete for all operational workflows.</p>
+
+      <h2>2.1 Planned Task Visibility</h2>
+      <p><strong>Current Gap:</strong> Planned/queued tasks not visible in dashboard. Users don't know what's coming.</p>
+
+      <table>
+        <tr>
+          <th>Task Type</th>
+          <th>Current State</th>
+          <th>Target State</th>
+        </tr>
+        <tr>
+          <td>Scheduled PA submissions</td>
+          <td><span class="status status-blocked">Manual tracking</span></td>
+          <td><span class="status status-live">Dashboard queue view</span></td>
+        </tr>
+        <tr>
+          <td>Retry queue</td>
+          <td><span class="status status-blocked">Hidden in logs</span></td>
+          <td><span class="status status-live">Visible retry dashboard</span></td>
+        </tr>
+        <tr>
+          <td>Exception routing</td>
+          <td><span class="status status-blocked">IRC/chat notification</span></td>
+          <td><span class="status status-live">Dashboard alert + queue</span></td>
+        </tr>
+      </table>
+
+      <pre>GET /api/v1/planned-tasks
+Response: {
+  "scheduled": [
+    {
+      "task_id": "...",
+      "type": "pa_submission",
+      "scheduled_for": "2026-04-28T10:00:00Z",
+      "patient_name": "...",
+      "status": "queued"
+    }
+  ],
+  "retry_queue": [...],
+  "exception_routes": [...]
+}</pre>
+
+      <h2>2.2 In-Dashboard Approval Workflows</h2>
+      <p><strong>Current Gap:</strong> Approvals require email chains and Slack pings. No audit trail.</p>
+
+      <table>
+        <tr>
+          <th>Approval Type</th>
+          <th>Current Flow</th>
+          <th>Target Flow</th>
+        </tr>
+        <tr>
+          <td>High-value PA</td>
+          <td>Email chain</td>
+          <td>Dashboard approval modal</td>
+        </tr>
+        <tr>
+          <td>Denial escalation</td>
+          <td>IRC ping</td>
+          <td>Dashboard queue + approve</td>
+        </tr>
+        <tr>
+          <td>Manual override</td>
+          <td>Direct DB write</td>
+          <td>Dashboard approve + audit</td>
+        </tr>
+      </table>
+
+      <pre>POST /api/v1/approvals
+{
+  "task_id": "BCECBDG7",
+  "approval_type": "high_value_pa",
+  "approved_by": "kulraj@risalabs.ai",
+  "notes": "Approved per client request"
+}
+
+Response: {
+  "approval_id": "apr_xxxx",
+  "status": "approved",
+  "audited_at": "2026-04-27T10:30:00Z"
+}</pre>
+
+      <h2>2.3 Client Operational Gaps</h2>
+
+      <h3>NYCBS Gaps to Close</h3>
+      <ul class="checklist">
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Batch file status visibility</div></div><span class="tag tag-blue">Backend + Frontend</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Denial letter attachment confirmation</div></div><span class="tag tag-blue">Backend + RPA</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">SFTP push/pull status dashboard</div></div><span class="tag tag-blue">Backend</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Error log visibility per batch</div></div><span class="tag tag-blue">Backend + Frontend</span></li>
+      </ul>
+
+      <h3>Astera Gaps to Close</h3>
+      <ul class="checklist">
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Email attachment fetch status</div></div><span class="tag tag-purple">Backend + RPA</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Bulk submission progress tracking</div></div><span class="tag tag-purple">Backend</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Single PA submission confirmation</div></div><span class="tag tag-purple">Backend</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">OncoEMR writeback status</div></div><span class="tag tag-purple">RPA + Backend</span></li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <!-- PHASE 3 -->
+    <section class="section">
+      <h1>Phase 3: Write-back & Integration</h1>
+      <p class="phase-duration" style="display: inline-block; background: var(--purple); color: white;">Week 7-10</p>
+
+      <p>Complete the loop: the dashboard shouldn't just track work — it should execute and close work. Full write-back integration eliminates manual handoffs.</p>
+
+      <h2>3.1 FHIR Write-back Completion</h2>
+      <p><strong>Current:</strong> Partial writeback to OncoEMR (text notes, letter uploads).</p>
+      <p><strong>Target:</strong> Complete FHIR-compliant writeback for all outcomes.</p>
+
+      <table>
+        <tr>
+          <th>Writeback Type</th>
+          <th>Current</th>
+          <th>Target</th>
+          <th>Priority</th>
+        </tr>
+        <tr>
+          <td>Approval note</td>
+          <td>Text note created</td>
+          <td>Structured FHIR DocumentReference</td>
+          <td><span class="tag tag-green">P0</span></td>
+        </tr>
+        <tr>
+          <td>Denial letter</td>
+          <td>Manual upload</td>
+          <td>Auto-upload + FHIR attachment</td>
+          <td><span class="tag tag-green">P0</span></td>
+        </tr>
+        <tr>
+          <td>Status update</td>
+          <td>Manual IRC</td>
+          <td>Auto-FHIR subscription</td>
+          <td><span class="tag tag-orange">P1</span></td>
+        </tr>
+      </table>
+
+      <pre>POST /api/v1/fhir/writeback
+{
+  "resource_type": "DocumentReference",
+  "patient_mrn": "8098029",
+  "outcome": "approved",
+  "document_url": "https://storage.risalabs.ai/auth_letters/...",
+  "author": "rpa-service",
+  "effective_date": "2026-05-01"
+}</pre>
+
+      <h2>3.2 Fax Workflow Sync</h2>
+      <p><strong>Current:</strong> Fax handled separately from main dashboard workflow.</p>
+      <p><strong>Target:</strong> Fax fully integrated into main dashboard.</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" style="font-size: 24px;">Fax Inbox</div>
+          <div class="stat-label">Received faxes → dashboard notification</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="font-size: 24px;">Fax-to-PA</div>
+          <div class="stat-label">Fax parsed → PA order auto-created</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="font-size: 24px;">Fax Status</div>
+          <div class="stat-label">Sent/failed/delivered in dashboard</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="font-size: 24px;">Fax Linking</div>
+          <div class="stat-label">Fax linked to related PA order</div>
+        </div>
+      </div>
+
+      <pre>GET /api/v1/fax/inbox
+GET /api/v1/fax/{id}/route-to-pa
+POST /api/v1/fax/{id}/attach-to-order</pre>
+
+      <h2>3.3 Calling Workflow Integration</h2>
+      <p><strong>Current:</strong> Calling workflow exists but not visible in dashboard.</p>
+      <p><strong>Target:</strong> Call outcomes visible and actionable in dashboard.</p>
+
+      <table>
+        <tr>
+          <th>Call Feature</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td><strong>Call Queue</strong></td>
+          <td>Patients requiring call → dashboard notification</td>
+        </tr>
+        <tr>
+          <td><strong>Call Status</strong></td>
+          <td>Attempted/completed/failed logged</td>
+        </tr>
+        <tr>
+          <td><strong>Call Outcome</strong></td>
+          <td>Connected/voicemail/no-answer tracked</td>
+        </tr>
+        <tr>
+          <td><strong>Callback Scheduling</strong></td>
+          <td>Schedule follow-up call from dashboard</td>
+        </tr>
+      </table>
+
+      <h2>3.4 GG Sync Status Visibility</h2>
+      <p><strong>Current:</strong> GG sync status unknown, errors surface as production issues.</p>
+      <p><strong>Target:</strong> Dashboard shows GG sync status + error logs + retry controls.</p>
+
+      <pre>GET /api/v1/integrations/gg-sync/status
+Response: {
+  "last_sync": "2026-04-27T10:00:00Z",
+  "status": "healthy",
+  "records_synced": 1523,
+  "errors": [],
+  "next_scheduled": "2026-04-28T10:00:00Z"
+}</pre>
+    </section>
+
+    <hr>
+
+    <!-- PHASE 4 -->
+    <section class="section">
+      <h1>Phase 4: Analytics & Trust</h1>
+      <p class="phase-duration" style="display: inline-block; background: var(--cyan); color: white;">Week 11-14</p>
+
+      <p>Fix the trust deficit. Analytics gave wrong values — now fix it systematically and prove it's reliable. Then build executive reports that eliminate raw data pulls.</p>
+
+      <h2>4.1 Analytics Trust Recovery</h2>
+
+      <div class="insight">
+        <div class="insight-title">Critical Principle: Trust > Features</div>
+        <p>Users will ignore the most feature-rich dashboard if they don't trust the data. Fixing data reliability matters more than building new capabilities. Show, don't claim.</p>
+      </div>
+
+      <h3>Systematic Data Reliability Fix</h3>
+
+      <table>
+        <tr>
+          <th>Issue</th>
+          <th>Fix</th>
+          <th>Verification</th>
+        </tr>
+        <tr>
+          <td>Wrong PA counts</td>
+          <td>Re-validate BigQuery queries against RPA logs</td>
+          <td>Cross-check 100 samples</td>
+        </tr>
+        <tr>
+          <td>Error spike false positives</td>
+          <td>Tune alert thresholds with actual data</td>
+          <td>30-day stable run</td>
+        </tr>
+        <tr>
+          <td>Missing data indicators</td>
+          <td>Fix ETL pipeline edge cases</td>
+          <td>Daily reconciliation</td>
+        </tr>
+        <tr>
+          <td>Stale dashboard data</td>
+          <td>Increase refresh frequency to &lt;5min</td>
+          <td>Real-time validation</td>
+        </tr>
+      </table>
+
+      <h3>Trust Metrics to Track</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">99.9%</div>
+          <div class="stat-label">Dashboard vs Source Match</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">30+ days</div>
+          <div class="stat-label">Since Last Analytics Error</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4.5/5</div>
+          <div class="stat-label">PM Trust Score (Target)</div>
+        </div>
+      </div>
+
+      <h2>4.2 Executive Reports in Astera</h2>
+      <p><strong>Current:</strong> Leadership pulls raw data from BigQuery or asks PMs.</p>
+      <p><strong>Target:</strong> Automated executive reports in dashboard — zero raw data pulls.</p>
+
+      <table>
+        <tr>
+          <th>Report</th>
+          <th>Refresh</th>
+          <th>Contents</th>
+        </tr>
+        <tr>
+          <td><strong>Daily Ops Summary</strong></td>
+          <td>Every 4 hours</td>
+          <td>Volume, approval rate, errors, queue depth</td>
+        </tr>
+        <tr>
+          <td><strong>Weekly Trend Report</strong></td>
+          <td>Monday AM</td>
+          <td>WoW comparison, anomaly flags, projections</td>
+        </tr>
+        <tr>
+          <td><strong>Client Health Score</strong></td>
+          <td>Daily</td>
+          <td>Per-client SLA adherence, turnaround time</td>
+        </tr>
+        <tr>
+          <td><strong>FTE Efficiency</strong></td>
+          <td>Weekly</td>
+          <td>PAs per FTE, automation rate, capacity</td>
+        </tr>
+      </table>
+
+      <pre>GET /api/v1/reports/executive/daily
+GET /api/v1/reports/executive/weekly
+GET /api/v1/reports/client-health
+GET /api/v1/reports/fte-efficiency</pre>
+
+      <h2>4.3 Per-Feature Improvement Tracking</h2>
+      <p><strong>Problem:</strong> No visibility into which features actually reduce manual work.</p>
+      <p><strong>Solution:</strong> Dashboard analytics for dashboard usage.</p>
+
+      <table>
+        <tr>
+          <th>Metric</th>
+          <th>What It Tracks</th>
+          <th>Action on Insight</th>
+        </tr>
+        <tr>
+          <td>Feature usage heatmap</td>
+          <td>Which features used most</td>
+          <td>Prioritize popular, deprecate unused</td>
+        </tr>
+        <tr>
+          <td>Time-to-action</td>
+          <td>How fast users complete tasks</td>
+          <td>Optimize slow workflows</td>
+        </tr>
+        <tr>
+          <td>Abandonment rate</td>
+          <td>Where users drop off</td>
+          <td>Fix friction points</td>
+        </tr>
+        <tr>
+          <td>Search-to-action</td>
+          <td>Does search find what users need</td>
+          <td>Improve search relevance</td>
+        </tr>
+      </table>
+    </section>
+
+    <hr>
+
+    <!-- PHASE 5 -->
+    <section class="section">
+      <h1>Phase 5: Stack Mapping</h1>
+      <p class="phase-duration" style="display: inline-block; background: var(--pink); color: white;">Week 15-16</p>
+
+      <p>Document what exists so teams stop asking "can we do X?" and start knowing. Stack mapping enables Sales to sell accurately and Ops to operate confidently.</p>
+
+      <h2>5.1 Sales Team Capability Map</h2>
+      <p><strong>Question:</strong> "If a client comes, what can we build?"</p>
+
+      <table>
+        <tr>
+          <th>Client Ask</th>
+          <th>RISA Capability</th>
+          <th>Status</th>
+          <th>Documentation</th>
+        </tr>
+        <tr>
+          <td>Prior auth automation</td>
+          <td>PA Order Pipeline</td>
+          <td><span class="status status-live">✅ Live</span></td>
+          <td>/api/v1/pa-orders/*</td>
+        </tr>
+        <tr>
+          <td>Eligibility verification</td>
+          <td>EV-BV Service</td>
+          <td><span class="status status-live">✅ Live</span></td>
+          <td>/ev-bv-service/v1/*</td>
+        </tr>
+        <tr>
+          <td>EHR integration</td>
+          <td>OncoEMR writeback</td>
+          <td><span class="status status-live">✅ Live</span></td>
+          <td>/rpa-service/v1/oncemr/*</td>
+        </tr>
+        <tr>
+          <td>Fax-based workflows</td>
+          <td>Fax API</td>
+          <td><span class="status status-live">✅ Live</span></td>
+          <td>/api/v1/fax/*</td>
+        </tr>
+        <tr>
+          <td>AI document processing</td>
+          <td>PDF extraction + Medical necessity</td>
+          <td><span class="status status-live">✅ Live</span></td>
+          <td>/ai-service/v1/*</td>
+        </tr>
+        <tr>
+          <td>Multi-payer support</td>
+          <td>50+ payer configs</td>
+          <td><span class="status status-live">✅ Live</span></td>
+          <td>Firestore configs</td>
+        </tr>
+        <tr>
+          <td>Real-time status tracking</td>
+          <td>Dashboard + CMM polling</td>
+          <td><span class="status status-live">✅ Live</span></td>
+          <td>Dashboard UI</td>
+        </tr>
+        <tr>
+          <td>Bulk processing</td>
+          <td>CSV batch + SFTP</td>
+          <td><span class="status status-live">✅ Live</span></td>
+          <td>/api/v1/sftp/*</td>
+        </tr>
+        <tr>
+          <td>Custom reporting</td>
+          <td>BigQuery + Dashboard</td>
+          <td><span class="status status-pending">🟡 Partial</span></td>
+          <td>In progress</td>
+        </tr>
+        <tr>
+          <td>Mobile access</td>
+          <td>None</td>
+          <td><span class="status status-blocked">🔴 Gap</span></td>
+          <td>Roadmap Q4</td>
+        </tr>
+        <tr>
+          <td>White-label</td>
+          <td>None</td>
+          <td><span class="status status-blocked">🔴 Gap</span></td>
+          <td>Not planned</td>
+        </tr>
+        <tr>
+          <td>Client portal</td>
+          <td>None</td>
+          <td><span class="status status-blocked">🔴 Gap</span></td>
+          <td>Roadmap Q4</td>
+        </tr>
+      </table>
+
+      <h2>5.2 Ops Team Feature Catalog</h2>
+      <p><strong>Question:</strong> "Does feature X exist? Where is it?"</p>
+
+      <table>
+        <tr>
+          <th>Category</th>
+          <th>Feature</th>
+          <th>Dashboard Location</th>
+          <th>API</th>
+        </tr>
+        <tr>
+          <td><strong>PA Orders</strong></td>
+          <td>Create order</td>
+          <td>Worklists → New</td>
+          <td>/api/v1/pa-orders/create</td>
+        </tr>
+        <tr>
+          <td><strong>PA Orders</strong></td>
+          <td>View order</td>
+          <td>Worklists → Search</td>
+          <td>/api/v1/pa-orders/{id}</td>
+        </tr>
+        <tr>
+          <td><strong>PA Orders</strong></td>
+          <td>Submit to plan</td>
+          <td>Order → Send to Plan</td>
+          <td>/api/v1/pa-orders/{id}/submit</td>
+        </tr>
+        <tr>
+          <td><strong>Status</strong></td>
+          <td>Track status</td>
+          <td>Status page</td>
+          <td>/api/v1/status/{id}</td>
+        </tr>
+        <tr>
+          <td><strong>Documents</strong></td>
+          <td>Upload letter</td>
+          <td>Order → Upload</td>
+          <td>/api/v1/documents/upload</td>
+        </tr>
+        <tr>
+          <td><strong>Analytics</strong></td>
+          <td>View KPIs</td>
+          <td>Summary page</td>
+          <td>/api/v1/summary-stats</td>
+        </tr>
+        <tr>
+          <td><strong>SFTP</strong></td>
+          <td>Upload batch</td>
+          <td>SFTP page</td>
+          <td>/api/v1/sftp/upload</td>
+        </tr>
+        <tr>
+          <td><strong>Validator</strong></td>
+          <td>Check eligibility</td>
+          <td>Validator page</td>
+          <td>/api/v1/coverage/check</td>
+        </tr>
+        <tr>
+          <td><strong>Fax</strong></td>
+          <td>Send fax</td>
+          <td>Fax page</td>
+          <td>/api/v1/fax/submit</td>
+        </tr>
+        <tr>
+          <td><strong>Reports</strong></td>
+          <td>Daily summary</td>
+          <td>Reports → Daily</td>
+          <td>/api/v1/reports/daily</td>
+        </tr>
+      </table>
+    </section>
+
+    <hr>
+
+    <!-- MEASUREMENT -->
+    <section class="section">
+      <h1>Measurement Framework</h1>
+
+      <h2>Dashboard Utilization Score</h2>
+      <pre>UTILIZATION_SCORE = (
+  Active_Users / Total_Users × 25% +
+  Feature_Adoption_Rate × 25% +
+  Decision_queries_Via_Dashboard / Total_Decision_Queries × 25% +
+  Manual_Steps_Eliminated / Total_Pre_Dashboard_Steps × 25%
+)</pre>
+
+      <h2>Progress Targets</h2>
+      <table>
+        <tr>
+          <th>Metric</th>
+          <th>Baseline</th>
+          <th>Week 4</th>
+          <th>Week 8</th>
+          <th>Week 12</th>
+          <th>Week 16</th>
+        </tr>
+        <tr>
+          <td>Active daily users</td>
+          <td class="kpi-current">X</td>
+          <td class="kpi-target">+20%</td>
+          <td class="kpi-target">+40%</td>
+          <td class="kpi-target">+60%</td>
+          <td class="kpi-target">+80%</td>
+        </tr>
+        <tr>
+          <td>Feature adoption</td>
+          <td class="kpi-current">60%</td>
+          <td class="kpi-target">75%</td>
+          <td class="kpi-target">85%</td>
+          <td class="kpi-target">95%</td>
+          <td class="kpi-target">100%</td>
+        </tr>
+        <tr>
+          <td>Manual query reduction</td>
+          <td class="kpi-current">80%</td>
+          <td class="kpi-target">85%</td>
+          <td class="kpi-target">92%</td>
+          <td class="kpi-target">97%</td>
+          <td class="kpi-target">100%</td>
+        </tr>
+        <tr>
+          <td>Analytics error rate</td>
+          <td class="kpi-current">Y</td>
+          <td class="kpi-target">-50%</td>
+          <td class="kpi-target">-80%</td>
+          <td class="kpi-target">-95%</td>
+          <td class="kpi-target">0%</td>
+        </tr>
+        <tr>
+          <td>Client escalations</td>
+          <td class="kpi-current">Z</td>
+          <td class="kpi-target">-20%</td>
+          <td class="kpi-target">-40%</td>
+          <td class="kpi-target">-60%</td>
+          <td class="kpi-target">-80%</td>
+        </tr>
+        <tr>
+          <td>Decision speed</td>
+          <td class="kpi-current">A min</td>
+          <td class="kpi-target">-15%</td>
+          <td class="kpi-target">-30%</td>
+          <td class="kpi-target">-50%</td>
+          <td class="kpi-target">-70%</td>
+        </tr>
+      </table>
+    </section>
+
+    <hr>
+
+    <!-- TECHNICAL DEPENDENCIES -->
+    <section class="section">
+      <h1>Technical Dependencies</h1>
+
+      <h2>Backend APIs Required</h2>
+      <ul class="checklist">
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Planned task visibility API</div></div><span class="tag tag-blue">Phase 2</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Approval workflow API</div></div><span class="tag tag-blue">Phase 2</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">FHIR writeback completion</div></div><span class="tag tag-purple">Phase 3</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Fax integration endpoints</div></div><span class="tag tag-purple">Phase 3</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Calling workflow API</div></div><span class="tag tag-purple">Phase 3</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Executive report APIs</div></div><span class="tag tag-cyan">Phase 4</span></li>
+      </ul>
+
+      <h2>Frontend Components Required</h2>
+      <ul class="checklist">
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Feature discovery overlay</div></div><span class="tag tag-green">Phase 1</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Environment indicator + switcher</div></div><span class="tag tag-green">Phase 1</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Missing data filter toggle</div></div><span class="tag tag-green">Phase 1</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Approval modal</div></div><span class="tag tag-blue">Phase 2</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Executive reports page</div></div><span class="tag tag-cyan">Phase 4</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Feature usage analytics dashboard</div></div><span class="tag tag-cyan">Phase 4</span></li>
+      </ul>
+
+      <h2>RPA Tasks</h2>
+      <ul class="checklist">
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Status comment fetch from CMM</div></div><span class="tag tag-green">Phase 1</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Auto-writeback trigger</div></div><span class="tag tag-purple">Phase 3</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Denial letter auto-upload</div></div><span class="tag tag-purple">Phase 3</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Fax routing automation</div></div><span class="tag tag-purple">Phase 3</span></li>
+      </ul>
+
+      <h2>Data Engineering</h2>
+      <ul class="checklist">
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Analytics pipeline fix</div></div><span class="tag tag-cyan">Phase 4</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">ETL reconciliation</div></div><span class="tag tag-cyan">Phase 4</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">BigQuery query validation</div></div><span class="tag tag-cyan">Phase 4</span></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Real-time dashboard refresh (&lt;5min)</div></div><span class="tag tag-cyan">Phase 4</span></li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <!-- RISKS -->
+    <section class="section">
+      <h1>Risks & Mitigations</h1>
+
+      <table>
+        <tr>
+          <th>Risk</th>
+          <th>Likelihood</th>
+          <th>Impact</th>
+          <th>Mitigation</th>
+        </tr>
+        <tr>
+          <td>Feature overload causes confusion</td>
+          <td>Medium</td>
+          <td>Low</td>
+          <td>Phase rollout with feedback loops, training sessions</td>
+        </tr>
+        <tr>
+          <td>Analytics trust takes longer than planned</td>
+          <td>High</td>
+          <td>High</td>
+          <td>Start trust recovery Week 1, show progress publicly</td>
+        </tr>
+        <tr>
+          <td>Adoption resistance from power users</td>
+          <td>Medium</td>
+          <td>Medium</td>
+          <td>Champion users in each team, involve in design</td>
+        </tr>
+        <tr>
+          <td>Scope creep from stakeholders</td>
+          <td>High</td>
+          <td>Medium</td>
+          <td>Strict phase gates, clear prioritization criteria</td>
+        </tr>
+        <tr>
+          <td>Data reliability fix reveals more issues</td>
+          <td>Medium</td>
+          <td>Medium</td>
+          <td>Buffer 2 weeks in Phase 4 for unknowns</td>
+        </tr>
+        <tr>
+          <td>RPA stability affects writeback reliability</td>
+          <td>Medium</td>
+          <td>High</td>
+          <td>Robust error handling + manual fallback in Phase 3</td>
+        </tr>
+      </table>
+    </section>
+
+    <hr>
+
+    <!-- SUCCESS CRITERIA -->
+    <section class="section">
+      <h1>Success Criteria</h1>
+
+      <h2>Week 16 Delivered</h2>
+      <ul class="checklist">
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Zero PM manual BigQuery queries for operational decisions</div></div></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Zero client escalations due to "can't see status"</div></div></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Analytics errors: zero for 30+ consecutive days</div></div></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Feature adoption: 100% of available features used weekly</div></div></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Executive reports: zero raw data pulls</div></div></li>
+        <li><input type="checkbox"><div class="check-item"><div class="check-title">Approval workflows: 100% in-dashboard</div></div></li>
+      </ul>
+
+      <h2>Business Impact</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">30%+</div>
+          <div class="stat-label">NYCBS Volume Growth (Sustained)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">High</div>
+          <div class="stat-label">Client Retention (via transparency)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">-70%</div>
+          <div class="stat-label">Leadership Decision Speed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4.5/5</div>
+          <div class="stat-label">Operational Trust Score</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-title">RISA Dashboard Utilization Roadmap</div>
+      <a href="https://apis.risalabs.ai">Dashboard (Prod)</a>
+      <a href="https://apis-dev.risalabs.ai">Dashboard (Dev)</a>
+      <a href="https://apis-staging.risalabs.ai">Dashboard (Staging)</a>
+      <p>Prepared by Kulraj Sabharwal • Technical PM • April 2026</p>
+    </footer>
+
+  </div>
+</body>
+</html>

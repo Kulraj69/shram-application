@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISA Dashboard Roadmap | 100% Utilization Plan</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --bg-card: #1c2128;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-purple: #a371f7;
+            --accent-orange: #d29922;
+            --accent-red: #f85149;
+            --accent-cyan: #39d353;
+            --border-color: #30363d;
+            --gradient-start: #1a1f35;
+            --gradient-end: #0d1117;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            background-attachment: fixed;
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(88, 166, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(163, 113, 247, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(88, 166, 255, 0.1);
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .header-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .header-meta {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .meta-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-trend {
+            font-size: 12px;
+            margin-top: 8px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .stat-trend.up {
+            background: rgba(63, 185, 80, 0.1);
+            color: var(--accent-green);
+        }
+
+        .stat-trend.target {
+            background: rgba(163, 113, 247, 0.1);
+            color: var(--accent-purple);
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .section-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .section-badge {
+            margin-left: auto;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-weeks {
+            background: rgba(63, 185, 80, 0.1);
+            color: var(--accent-green);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-problem {
+            background: rgba(248, 81, 73, 0.1);
+            border: 1px solid rgba(248, 81, 73, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-problem-label {
+            font-size: 10px;
+            color: var(--accent-red);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .card-problem-text {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .card-solution {
+            background: rgba(63, 185, 80, 0.1);
+            border: 1px solid rgba(63, 185, 80, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-solution-label {
+            font-size: 10px;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .card-solution-text {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .card-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* Chart Containers */
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 16px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        /* Progress Bars */
+        .progress-container {
+            margin-bottom: 16px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .progress-label {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .progress-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-fill.blue { background: linear-gradient(90deg, var(--accent-blue), #79b8ff); }
+        .progress-fill.green { background: linear-gradient(90deg, var(--accent-green), #56d364); }
+        .progress-fill.purple { background: linear-gradient(90deg, var(--accent-purple), #bc8cff); }
+        .progress-fill.orange { background: linear-gradient(90deg, var(--accent-orange), #e3b341); }
+        .progress-fill.red { background: linear-gradient(90deg, var(--accent-red), #ff7b72); }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .code-title {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .code-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        tr:hover td {
+            background: var(--bg-tertiary);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-live {
+            background: rgba(63, 185, 80, 0.1);
+            color: var(--accent-green);
+        }
+
+        .status-partial {
+            background: rgba(210, 153, 34, 0.1);
+            color: var(--accent-orange);
+        }
+
+        .status-gap {
+            background: rgba(248, 81, 73, 0.1);
+            color: var(--accent-red);
+        }
+
+        /* API Block */
+        .api-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .api-method {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .api-method.get { background: rgba(88, 166, 255, 0.2); color: var(--accent-blue); }
+        .api-method.post { background: rgba(63, 185, 80, 0.2); color: var(--accent-green); }
+        .api-method.patch { background: rgba(163, 113, 247, 0.2); color: var(--accent-purple); }
+
+        .api-endpoint {
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .check-box {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .check-box.checked {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+
+        .check-content {
+            flex: 1;
+        }
+
+        .check-title {
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .check-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 32px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            border: 3px solid var(--bg-primary);
+        }
+
+        .timeline-item.success::before {
+            background: var(--accent-green);
+        }
+
+        .timeline-item.warning::before {
+            background: var(--accent-orange);
+        }
+
+        .timeline-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Architecture Diagram */
+        .architecture-diagram {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .arch-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .arch-node {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 24px;
+            min-width: 140px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .arch-node:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .arch-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .arch-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .arch-arrow {
+            font-size: 24px;
+            color: var(--text-muted);
+        }
+
+        /* Risk Cards */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .risk-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .risk-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .risk-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .risk-level {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .risk-level.high {
+            background: rgba(248, 81, 73, 0.1);
+            color: var(--accent-red);
+        }
+
+        .risk-level.medium {
+            background: rgba(210, 153, 34, 0.1);
+            color: var(--accent-orange);
+        }
+
+        .risk-level.low {
+            background: rgba(63, 185, 80, 0.1);
+            color: var(--accent-green);
+        }
+
+        .risk-impact {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .risk-mitigation {
+            font-size: 13px;
+            color: var(--text-primary);
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(163, 113, 247, 0.1));
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cta-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .cta-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-blue);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #79b8ff;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .footer-text a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header-meta {
+                gap: 20px;
+            }
+
+            .chart-header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-badge">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0L10.1 5.3L16 6.2L12 10.1L13 16L8 13L3 16L4 10.1L0 6.2L5.9 5.3L8 0Z"/>
+                </svg>
+                Technical PM Roadmap
+            </div>
+            <h1>RISA Dashboard Roadmap</h1>
+            <p class="header-subtitle">16-Week Plan to Achieve 100% Dashboard Utilization — From 80% to Zero Manual Workarounds</p>
+
+            <div class="header-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Duration</div>
+                    <div class="meta-value">16 Weeks</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Phases</div>
+                    <div class="meta-value">5 Phases</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Current State</div>
+                    <div class="meta-value">80% Automation</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Target State</div>
+                    <div class="meta-value">100% Utilization</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar animate-fade-in">
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-value">13,509</div>
+                <div class="stat-label">PA Orders Tracked</div>
+                <div class="stat-trend up">+12% WoW</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value">80%</div>
+                <div class="stat-label">Current Automation</div>
+                <div class="stat-trend target">Target: 100%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value">20%</div>
+                <div class="stat-label">Manual Gap</div>
+                <div class="stat-trend up">High-value opportunities</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value">4</div>
+                <div class="stat-label">User Teams</div>
+                <div class="stat-trend target">PM, Ops, CS, Leadership</div>
+            </div>
+        </div>
+
+        <!-- Executive Summary Chart -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <div class="chart-title">Dashboard Utilization Score Progression</div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--accent-blue);"></div>
+                        Projected Score
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--accent-green);"></div>
+                        Target Score
+                    </div>
+                </div>
+            </div>
+            <canvas id="utilizationChart" height="100"></canvas>
+        </div>
+
+        <!-- Problem Analysis Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">0</div>
+                <div>
+                    <div class="section-title">Problem Analysis — Why Adoption Stalls Below 100%</div>
+                    <div class="section-desc">Understanding the root causes of dashboard underutilization</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Root Cause Analysis</div>
+                </div>
+                <canvas id="problemChart" height="120"></canvas>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header" style="background: linear-gradient(135deg, rgba(248, 81, 73, 0.1), var(--bg-secondary));">
+                        <div class="card-icon" style="background: rgba(248, 81, 73, 0.2); color: var(--accent-red);">⚠️</div>
+                        <div class="card-title">Missing Features</div>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;">Users work around gaps in dashboard functionality by using external tools and manual processes.</p>
+                        <p style="font-size: 13px; color: var(--text-muted);">Result: Feature completeness debt creates workarounds.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" style="background: linear-gradient(135deg, rgba(210, 153, 34, 0.1), var(--bg-secondary));">
+                        <div class="card-icon" style="background: rgba(210, 153, 34, 0.2); color: var(--accent-orange);">🤔</div>
+                        <div class="card-title">Trust Deficit</div>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;">PMs double-check dashboard outputs against BigQuery because of past analytics errors.</p>
+                        <p style="font-size: 13px; color: var(--text-muted);">Result: Trusted data requires verification step.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" style="background: linear-gradient(135deg, rgba(163, 113, 247, 0.1), var(--bg-secondary));">
+                        <div class="card-icon" style="background: rgba(163, 113, 247, 0.2); color: var(--accent-purple);">🔗</div>
+                        <div class="card-title">Workflow Disconnects</div>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;">Steps happen outside dashboard due to writeback gaps and manual handoffs.</p>
+                        <p style="font-size: 13px; color: var(--text-muted);">Result: Hybrid workflows require multiple tools.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" style="background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), var(--bg-secondary));">
+                        <div class="card-icon" style="background: rgba(88, 166, 255, 0.2); color: var(--accent-blue);">❓</div>
+                        <div class="card-title">Knowledge Gaps</div>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;">"I don't know if dashboard has X" — no feature discovery UX exists.</p>
+                        <p style="font-size: 13px; color: var(--text-muted);">Result: Features exist but are undiscoverable.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" style="background: linear-gradient(135deg, rgba(63, 185, 80, 0.1), var(--bg-secondary));">
+                        <div class="card-icon" style="background: rgba(63, 185, 80, 0.2); color: var(--accent-green);">✅</div>
+                        <div class="card-title">Badging/Approval Gaps</div>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;">Approval requires external email/Slack threads instead of in-dashboard workflow.</p>
+                        <p style="font-size: 13px; color: var(--text-muted);">Result: Disconnected approval chains.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" style="background: linear-gradient(135deg, rgba(57, 211, 83, 0.1), var(--bg-secondary));">
+                        <div class="card-icon" style="background: rgba(57, 211, 83, 0.2); color: var(--accent-cyan);">📈</div>
+                        <div class="card-title">Reporting Gaps</div>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;">Leadership pulls raw data instead of using executive dashboards.</p>
+                        <p style="font-size: 13px; color: var(--text-muted);">Result: Raw data pulls become the source of truth.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 1 -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <div>
+                    <div class="section-title">Phase 1: Quick Wins</div>
+                    <div class="section-desc">High-impact, low-effort features for immediate improvement</div>
+                </div>
+                <div class="section-badge badge-weeks">Week 1-2</div>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Feature Discovery -->
+                <div class="card animate-fade-in delay-1">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(88, 166, 255, 0.2); color: var(--accent-blue);">🔍</div>
+                        <div class="card-title">Feature Discovery Overlay</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-problem">
+                            <div class="card-problem-label">Problem</div>
+                            <div class="card-problem-text">Users don't know what the dashboard can do.</div>
+                        </div>
+                        <div class="card-solution">
+                            <div class="card-solution-label">Solution</div>
+                            <div class="card-solution-text">In-app tooltips + "New Features" notification banner + first-time user tour.</div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value">+15%</div>
+                                <div class="metric-label">Adoption Boost</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">Low</div>
+                                <div class="metric-label">Effort</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">1 Week</div>
+                                <div class="metric-label">Timeline</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CMM Status Fetch -->
+                <div class="card animate-fade-in delay-2">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(63, 185, 80, 0.2); color: var(--accent-green);">📋</div>
+                        <div class="card-title">Status Comment Fetch</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-problem">
+                            <div class="card-problem-label">Problem</div>
+                            <div class="card-problem-text">Status shows "Sent to Plan" but no plan response details.</div>
+                        </div>
+                        <div class="card-solution">
+                            <div class="card-solution-label">Solution</div>
+                            <div class="card-solution-text">Auto-fetch CoverMyMeds status comments on status page with Firestore caching.</div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value">100%</div>
+                                <div class="metric-label">CMM Login Eliminated</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">Medium</div>
+                                <div class="metric-label">Effort</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">2 Weeks</div>
+                                <div class="metric-label">Timeline</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dev/Prod Toggle -->
+                <div class="card animate-fade-in delay-3">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(163, 113, 247, 0.2); color: var(--accent-purple);">🔄</div>
+                        <div class="card-title">Dev/Prod Environment Toggle</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-problem">
+                            <div class="card-problem-label">Problem</div>
+                            <div class="card-problem-text">PMs confused about which dashboard to use. Risk of testing in prod.</div>
+                        </div>
+                        <div class="card-solution">
+                            <div class="card-solution-label">Solution</div>
+                            <div class="card-solution-text">Clear environment indicator (color-coded header) + prominent switch with confirmation.</div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value">0</div>
+                                <div class="metric-label">Prod Accidents</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">Low</div>
+                                <div class="metric-label">Effort</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">1 Week</div>
+                                <div class="metric-label">Timeline</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Missing Data Filter -->
+                <div class="card animate-fade-in delay-4">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(210, 153, 34, 0.2); color: var(--accent-orange);">🎯</div>
+                        <div class="card-title">Missing Data Pre-Filter</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-problem">
+                            <div class="card-problem-label">Problem</div>
+                            <div class="card-problem-text">Users scan entire list looking for actionable items.</div>
+                        </div>
+                        <div class="card-solution">
+                            <div class="card-solution-label">Solution</div>
+                            <div class="card-solution-text">One-click "Show only items with missing data" filter with field selection.</div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value">-50%</div>
+                                <div class="metric-label">Search Time</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">Low</div>
+                                <div class="metric-label">Effort</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">1 Week</div>
+                                <div class="metric-label">Timeline</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 2 -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <div>
+                    <div class="section-title">Phase 2: Feature Completeness</div>
+                    <div class="section-desc">Complete visibility gaps, approvals, and client-specific features</div>
+                </div>
+                <div class="section-badge badge-weeks">Week 3-6</div>
+            </div>
+
+            <!-- Architecture Diagram -->
+            <div class="architecture-diagram">
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">PLANNED TASK PIPELINE ARCHITECTURE</div>
+                <div class="arch-flow">
+                    <div class="arch-node">
+                        <div class="arch-icon">📅</div>
+                        <div class="arch-label">Scheduled Tasks</div>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node">
+                        <div class="arch-icon">⏳</div>
+                        <div class="arch-label">Ready Queue</div>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node">
+                        <div class="arch-icon">⚡</div>
+                        <div class="arch-label">Executing</div>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node">
+                        <div class="arch-icon">✅</div>
+                        <div class="arch-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(88, 166, 255, 0.2); color: var(--accent-blue);">📋</div>
+                        <div class="card-title">Planned Task Incorporation</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="checklist">
+                            <li>
+                                <div class="check-box checked"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Scheduled PA Submission Queue</div>
+                                    <div class="check-desc">Dashboard view for time-based PA submissions</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box checked"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Retry Queue Visibility</div>
+                                    <div class="check-desc">Visible retry dashboard instead of hidden logs</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Exception Routing</div>
+                                    <div class="check-desc">Dashboard alerts + queue for IRC/chat notifications</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(63, 185, 80, 0.2); color: var(--accent-green);">✅</div>
+                        <div class="card-title">Approval Systems</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="checklist">
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">High-Value PA Approval Modal</div>
+                                    <div class="check-desc">In-dashboard approval instead of email chains</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Denial Escalation Queue</div>
+                                    <div class="check-desc">Dashboard queue + approve instead of IRC ping</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Manual Override Audit Trail</div>
+                                    <div class="check-desc">Dashboard approve + audit instead of direct DB write</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NYCBS/Astera Comparison -->
+            <div class="chart-container" style="margin-top: 24px;">
+                <div class="chart-header">
+                    <div class="chart-title">Client-Specific Feature Gaps</div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px;">
+                    <div>
+                        <h4 style="color: var(--accent-blue); margin-bottom: 16px;">🛡️ NYCBS Gaps</h4>
+                        <ul class="checklist">
+                            <li><div class="check-box"></div><div class="check-content"><div class="check-title">Batch File Status Visibility</div></div></li>
+                            <li><div class="check-box"></div><div class="check-content"><div class="check-title">Denial Letter Attachment Confirmation</div></div></li>
+                            <li><div class="check-box"></div><div class="check-content"><div class="check-title">SFTP Push/Pull Status Dashboard</div></div></li>
+                            <li><div class="check-box"></div><div class="check-content"><div class="check-title">Error Log Visibility Per Batch</div></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--accent-green); margin-bottom: 16px;">🔬 Astera Gaps</h4>
+                        <ul class="checklist">
+                            <li><div class="check-box"></div><div class="check-content"><div class="check-title">Email Attachment Fetch Status</div></div></li>
+                            <li><div class="check-box"></div><div class="check-content"><div class="check-title">Bulk Submission Progress Tracking</div></div></li>
+                            <li><div class="check-box"></div><div class="check-content"><div class="check-title">Single PA Submission Confirmation</div></div></li>
+                            <li><div class="check-box"></div><div class="check-content"><div class="check-title">OncoEMR Writeback Status</div></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 3 -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <div>
+                    <div class="section-title">Phase 3: Write-back & Integration</div>
+                    <div class="section-desc">Complete EMR integrations, fax, calling, and external sync</div>
+                </div>
+                <div class="section-badge badge-weeks">Week 7-10</div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">FHIR Write-back Data Flow</div>
+                </div>
+                <div class="arch-flow" style="flex-wrap: wrap;">
+                    <div class="arch-node">
+                        <div class="arch-icon">📝</div>
+                        <div class="arch-label">PA Outcome</div>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node">
+                        <div class="arch-icon">🔄</div>
+                        <div class="arch-label">FHIR Writeback</div>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node">
+                        <div class="arch-icon">🏥</div>
+                        <div class="arch-label">OncoEMR</div>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node">
+                        <div class="arch-icon">✅</div>
+                        <div class="arch-label">DocumentReference</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(163, 113, 247, 0.2); color: var(--accent-purple);">📄</div>
+                        <div class="card-title">FHIR Writeback Completion</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Writeback Type</th>
+                                        <th>Current</th>
+                                        <th>Target</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Approval Note</td>
+                                        <td style="color: var(--accent-orange);">Text note created</td>
+                                        <td style="color: var(--accent-green);">Structured FHIR DocumentReference</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Denial Letter</td>
+                                        <td style="color: var(--accent-orange);">Manual upload</td>
+                                        <td style="color: var(--accent-green);">Auto-upload + FHIR attachment</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status Update</td>
+                                        <td style="color: var(--accent-orange);">Manual IRC</td>
+                                        <td style="color: var(--accent-green);">Auto-FHIR subscription</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(88, 166, 255, 0.2); color: var(--accent-blue);">📠</div>
+                        <div class="card-title">Fax & Calling Workflows</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="checklist">
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Fax Integration</div>
+                                    <div class="check-desc">Inbound/outbound fax in main dashboard with status tracking</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Calling Workflow</div>
+                                    <div class="check-desc">Call outcomes visible and actionable in dashboard</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">GG Sync Visibility</div>
+                                    <div class="check-desc">Dashboard shows GG sync status + errors</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Block -->
+            <div class="api-block" style="margin-top: 24px;">
+                <div class="code-title">FHIR Writeback API</div>
+                <div style="margin-top: 8px;">
+                    <span class="api-method post">POST</span>
+                    <span class="api-endpoint">/api/v1/fhir/writeback</span>
+                </div>
+                <div style="margin-top: 12px; font-size: 12px; color: var(--text-secondary);">
+                    <pre style="color: var(--text-muted);">{
+  "resourceType": "DocumentReference",
+  "patientMrn": "...",
+  "outcome": "approved",
+  "documentUrl": "...",
+  "author": "rpa-service"
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 4 -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <div>
+                    <div class="section-title">Phase 4: Analytics & Trust</div>
+                    <div class="section-desc">Data reliability recovery and executive reporting</div>
+                </div>
+                <div class="section-badge badge-weeks">Week 11-14</div>
+            </div>
+
+            <!-- Trust Recovery Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Analytics Error Rate Reduction</div>
+                </div>
+                <canvas id="errorRateChart" height="80"></canvas>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(248, 81, 73, 0.2); color: var(--accent-red);">🔧</div>
+                        <div class="card-title">RISA Pharma Analytics — Trust Recovery</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="checklist">
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Re-validate BigQuery Queries</div>
+                                    <div class="check-desc">Cross-check with RPA logs for accuracy</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Tune Alert Thresholds</div>
+                                    <div class="check-desc">30-day stable run before production</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Fix ETL Pipeline</div>
+                                    <div class="check-desc">Daily reconciliation for missing data</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Real-time Dashboard Refresh</div>
+                                    <div class="check-desc"><5 min lag target for all data</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(57, 211, 83, 0.2); color: var(--accent-cyan);">📈</div>
+                        <div class="card-title">Executive Reports in Astera</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="checklist">
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Daily Ops Summary</div>
+                                    <div class="check-desc">Refresh every 4 hours — volume, approval rate, errors</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Weekly Trend Report</div>
+                                    <div class="check-desc">Monday AM — WoW comparison, anomaly flags</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">Client Health Score</div>
+                                    <div class="check-desc">Daily per-client SLA adherence</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="check-box"></div>
+                                <div class="check-content">
+                                    <div class="check-title">FTE Efficiency Report</div>
+                                    <div class="check-desc">Weekly PAs per FTE, automation rate</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 5 -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <div>
+                    <div class="section-title">Phase 5: Stack Mapping</div>
+                    <div class="section-desc">Sales capability map and ops feature catalog</div>
+                </div>
+                <div class="section-badge badge-weeks">Week 15-16</div>
+            </div>
+
+            <!-- Capability Matrix -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">RISA Capability Status Matrix</div>
+                </div>
+                <canvas id="capabilityChart" height="120"></canvas>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Client Ask</th>
+                            <th>RISA Capability</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Prior auth automation</td>
+                            <td>PA Order Pipeline</td>
+                            <td><span class="status-badge status-live">● Live</span></td>
+                        </tr>
+                        <tr>
+                            <td>Eligibility verification</td>
+                            <td>EV-BV Service</td>
+                            <td><span class="status-badge status-live">● Live</span></td>
+                        </tr>
+                        <tr>
+                            <td>EHR integration</td>
+                            <td>OncoEMR writeback</td>
+                            <td><span class="status-badge status-live">● Live</span></td>
+                        </tr>
+                        <tr>
+                            <td>Fax-based workflows</td>
+                            <td>Fax API</td>
+                            <td><span class="status-badge status-live">● Live</span></td>
+                        </tr>
+                        <tr>
+                            <td>AI document processing</td>
+                            <td>PDF extraction + Medical necessity</td>
+                            <td><span class="status-badge status-live">● Live</span></td>
+                        </tr>
+                        <tr>
+                            <td>Multi-payer support</td>
+                            <td>50+ payer configs</td>
+                            <td><span class="status-badge status-live">● Live</span></td>
+                        </tr>
+                        <tr>
+                            <td>Real-time status tracking</td>
+                            <td>Dashboard + CMM polling</td>
+                            <td><span class="status-badge status-live">● Live</span></td>
+                        </tr>
+                        <tr>
+                            <td>Bulk processing</td>
+                            <td>CSV batch + SFTP</td>
+                            <td><span class="status-badge status-live">● Live</span></td>
+                        </tr>
+                        <tr>
+                            <td>Custom reporting</td>
+                            <td>BigQuery + Dashboard</td>
+                            <td><span class="status-badge status-partial">● Partial</span></td>
+                        </tr>
+                        <tr>
+                            <td>Mobile access</td>
+                            <td>None</td>
+                            <td><span class="status-badge status-gap">● Gap</span></td>
+                        </tr>
+                        <tr>
+                            <td>White-label</td>
+                            <td>None</td>
+                            <td><span class="status-badge status-gap">● Gap</span></td>
+                        </tr>
+                        <tr>
+                            <td>Client portal</td>
+                            <td>None</td>
+                            <td><span class="status-badge status-gap">● Gap</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Risks Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">⚠️</div>
+                <div>
+                    <div class="section-title">Risks & Mitigations</div>
+                    <div class="section-desc">Proactive risk management for roadmap execution</div>
+                </div>
+            </div>
+
+            <div class="risk-grid">
+                <div class="risk-card">
+                    <div class="risk-header">
+                        <div class="risk-name">Feature Overload</div>
+                        <div class="risk-level medium">Medium</div>
+                    </div>
+                    <div class="risk-impact">Users get overwhelmed by new features</div>
+                    <div class="risk-mitigation">📋 Phase rollout with feedback loops between phases</div>
+                </div>
+
+                <div class="risk-card">
+                    <div class="risk-header">
+                        <div class="risk-name">Analytics Trust Takes Time</div>
+                        <div class="risk-level high">High</div>
+                    </div>
+                    <div class="risk-impact">PMs remain skeptical even after fixes</div>
+                    <div class="risk-mitigation">📊 Start trust recovery Week 1, show progress weekly</div>
+                </div>
+
+                <div class="risk-card">
+                    <div class="risk-header">
+                        <div class="risk-name">Client-Side Adoption Resistance</div>
+                        <div class="risk-level medium">Medium</div>
+                    </div>
+                    <div class="risk-impact">Users prefer existing workarounds</div>
+                    <div class="risk-mitigation">👥 Champion users in each team, training sessions</div>
+                </div>
+
+                <div class="risk-card">
+                    <div class="risk-header">
+                        <div class="risk-name">Scope Creep</div>
+                        <div class="risk-level high">High</div>
+                    </div>
+                    <div class="risk-impact">Adding features outside phase scope</div>
+                    <div class="risk-mitigation">📅 Strict phase gates with change control</div>
+                </div>
+
+                <div class="risk-card">
+                    <div class="risk-header">
+                        <div class="risk-name">Data Reliability Reveals More Issues</div>
+                        <div class="risk-level medium">Medium</div>
+                    </div>
+                    <div class="risk-impact">Fixing analytics reveals underlying issues</div>
+                    <div class="risk-mitigation">⏱️ Buffer time in each phase for unexpected work</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Criteria -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">🎯</div>
+                <div>
+                    <div class="section-title">Success Criteria — Week 16</div>
+                    <div class="section-desc">Measurable outcomes for 100% dashboard utilization</div>
+                </div>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" style="border: 2px solid var(--accent-green);">
+                    <div class="card-body">
+                        <h3 style="color: var(--accent-green); margin-bottom: 16px;">✅ Operational Metrics</h3>
+                        <ul class="checklist">
+                            <li><div class="check-box checked"></div><div class="check-content"><div class="check-title">Zero PM manual BigQuery queries for operational decisions</div></div></li>
+                            <li><div class="check-box checked"></div><div class="check-content"><div class="check-title">Zero client escalations due to "can't see status"</div></div></li>
+                            <li><div class="check-box checked"></div><div class="check-content"><div class="check-title">Analytics errors: zero for 30+ consecutive days</div></div></li>
+                            <li><div class="check-box checked"></div><div class="check-content"><div class="check-title">Feature adoption: 100% of available features used weekly</div></div></li>
+                            <li><div class="check-box checked"></div><div class="check-content"><div class="check-title">Executive reports: zero raw data pulls</div></div></li>
+                            <li><div class="check-box checked"></div><div class="check-content"><div class="check-title">Approval workflows: 100% in-dashboard</div></div></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="border: 2px solid var(--accent-blue);">
+                    <div class="card-body">
+                        <h3 style="color: var(--accent-blue); margin-bottom: 16px;">📈 Business Impact</h3>
+                        <ul class="checklist">
+                            <li><div class="check-box checked"></div><div class="check-content"><div class="check-title">NYCBS volume growth sustainable without proportional FTE increase</div></div></li>
+                            <li><div class="check-box checked"></div><div class="check-content"><div class="check-title">Client retention improved via transparency</div></div></li>
+                            <li><div class="check-box checked"></div><div class="check-content"><div class="check-title">Leadership decision speed: -70%</div></div></li>
+                            <li><div class="check-box checked"></div><div class="check-content"><div class="check-title">Operational trust score: >4.5/5</div></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Metrics Progression -->
+        <section class="section">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">16-Week Metrics Progression</div>
+                </div>
+                <canvas id="progressionChart" height="100"></canvas>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2 class="cta-title">Ready to Achieve 100% Dashboard Utilization?</h2>
+            <p class="cta-desc">This roadmap provides a structured path from 80% to 100% adoption with measurable milestones at each phase.</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="https://github.com/kulraj69/shram-application" class="cta-button">
+                    📂 View PRD Documentation
+                </a>
+                <a href="https://www.notion.so/RISA-Dashboard-Roadmap-100-Utilization-Plan-34e8fc2d861881d99d2ce6091d7db672" class="cta-button" style="background: var(--accent-purple);">
+                    📝 Open in Notion
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">
+                RISA Dashboard Utilization Roadmap v1.0 | Created by <a href="#">Kulraj Sabharwal</a>, Technical PM<br>
+                Last Updated: April 2026 | Document Status: Active
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Chart.js Global Configuration
+        Chart.defaults.color = '#8b949e';
+        Chart.defaults.borderColor = '#30363d';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        // Utilization Score Progression Chart
+        new Chart(document.getElementById('utilizationChart'), {
+            type: 'line',
+            data: {
+                labels: ['Week 0', 'Week 2', 'Week 4', 'Week 6', 'Week 8', 'Week 10', 'Week 12', 'Week 14', 'Week 16'],
+                datasets: [{
+                    label: 'Projected Score',
+                    data: [80, 82, 85, 88, 91, 94, 97, 99, 100],
+                    borderColor: '#58a6ff',
+                    backgroundColor: 'rgba(88, 166, 255, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointBackgroundColor: '#58a6ff'
+                }, {
+                    label: 'Target Score',
+                    data: [80, 83, 86, 89, 92, 95, 97, 99, 100],
+                    borderColor: '#3fb950',
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        min: 70,
+                        max: 100,
+                        ticks: { callback: value => value + '%' }
+                    }
+                }
+            }
+        });
+
+        // Problem Analysis Chart
+        new Chart(document.getElementById('problemChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Missing\nFeatures', 'Trust\nDeficit', 'Workflow\nDisconnects', 'Knowledge\nGaps', 'Approval\nGaps', 'Reporting\nGaps'],
+                datasets: [{
+                    label: 'Impact Level',
+                    data: [85, 90, 75, 80, 70, 65],
+                    backgroundColor: [
+                        'rgba(248, 81, 73, 0.8)',
+                        'rgba(210, 153, 34, 0.8)',
+                        'rgba(163, 113, 247, 0.8)',
+                        'rgba(88, 166, 255, 0.8)',
+                        'rgba(63, 185, 80, 0.8)',
+                        'rgba(57, 211, 83, 0.8)'
+                    ],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                indexAxis: 'y',
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: {
+                        min: 0,
+                        max: 100,
+                        title: { display: true, text: 'Impact Score' }
+                    }
+                }
+            }
+        });
+
+        // Error Rate Reduction Chart
+        new Chart(document.getElementById('errorRateChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Week 11', 'Week 12', 'Week 13', 'Week 14'],
+                datasets: [{
+                    label: 'Error Rate per 1000',
+                    data: [8, 4, 2, 0],
+                    backgroundColor: 'rgba(248, 81, 73, 0.8)',
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 10,
+                        title: { display: true, text: 'Errors per 1000 PAs' }
+                    }
+                }
+            }
+        });
+
+        // Capability Status Chart
+        new Chart(document.getElementById('capabilityChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Live', 'Partial', 'Planned', 'Gap'],
+                datasets: [{
+                    data: [8, 1, 0, 3],
+                    backgroundColor: ['#3fb950', '#d29922', '#6e7681', '#f85149'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // 16-Week Progression Chart
+        new Chart(document.getElementById('progressionChart'), {
+            type: 'line',
+            data: {
+                labels: ['Week 0', 'Week 4', 'Week 8', 'Week 12', 'Week 16'],
+                datasets: [{
+                    label: 'Active Daily Users',
+                    data: [100, 120, 140, 160, 180],
+                    borderColor: '#58a6ff',
+                    backgroundColor: 'transparent',
+                    yAxisID: 'y'
+                }, {
+                    label: 'Feature Adoption',
+                    data: [60, 75, 85, 95, 100],
+                    borderColor: '#3fb950',
+                    backgroundColor: 'transparent',
+                    yAxisID: 'y'
+                }, {
+                    label: 'Manual Query Reduction',
+                    data: [80, 85, 92, 97, 100],
+                    borderColor: '#a371f7',
+                    backgroundColor: 'transparent',
+                    yAxisID: 'y'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        min: 50,
+                        max: 100,
+                        ticks: { callback: value => value + '%' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
